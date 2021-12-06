@@ -1,9 +1,9 @@
 {
-    "name": "saramagdits/saramagdits",
+    "name": "saramagdits",
     "description": "Portfolio and distributed web project",
     "type": "project",
     "license": "GPL-2.0-or-later",
-    "homepage": "https://github.com/saramagdits/saramagdits",
+    "homepage": "",
     "support": {
         "docs": "https://www.drupal.org/docs/user_guide/en/index.html",
         "chat": "https://www.drupal.org/node/314178"
