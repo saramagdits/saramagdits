@@ -1,0 +1,22 @@
+uuid: 599f7963-9fb7-47cb-8bb6-d0ee0097d60f
+langcode: en
+status: true
+dependencies:
+  module:
+    - help
+  theme:
+    - indie
+_core:
+  default_config_hash: 8I8iACSa0sKO3k3jlvUG1ge52rfcKX7USJAQYnzuBgg
+id: indie_help
+theme: indie
+region: content
+weight: -30
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: Help
+  provider: help
+  label_display: '0'
+visibility: {  }

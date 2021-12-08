@@ -1,0 +1,20 @@
+uuid: 393388e5-cc8a-4fb8-ab2e-78353b415d8e
+langcode: en
+status: true
+dependencies:
+  theme:
+    - indie
+_core:
+  default_config_hash: 13GQpeITIJsp1kyPniXtWZfyFH87vb1xxJCHifL4UeE
+id: indie_local_actions
+theme: indie
+region: content
+weight: -20
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  provider: core
+  label_display: '0'
+visibility: {  }

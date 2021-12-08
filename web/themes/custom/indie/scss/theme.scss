@@ -1,0 +1,24 @@
+/*
+Theme Name: Indie
+Description: Sass
+*/
+
+/**
+ * Base - elements
+ */
+@import "base/*";
+
+/**
+ * Components - reusable components
+ */
+@import "components/*";
+
+/**
+ * Layouts - styles specific to the layout of the page
+ */
+@import "layouts/*";
+
+/**
+ * Theme - print styles
+ */
+@import "theme/*";

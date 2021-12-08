@@ -1,0 +1,8 @@
+# Schema for the configuration files of the indie theme.
+indie.settings:
+  type: theme_settings
+  label: 'indie settings'
+  mapping:
+    font_size:
+      type: integer
+      label: Font size

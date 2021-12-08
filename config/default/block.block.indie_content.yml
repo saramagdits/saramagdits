@@ -1,0 +1,22 @@
+uuid: 9607b83e-2d66-4d0b-b41d-80aed05b6890
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - indie
+_core:
+  default_config_hash: 9EoWV2Lot6FVSr50t4hoKgiz1LIXYWNG-IIPYsWxBqo
+id: indie_content
+theme: indie
+region: content
+weight: 0
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  provider: system
+  label_display: '0'
+visibility: {  }

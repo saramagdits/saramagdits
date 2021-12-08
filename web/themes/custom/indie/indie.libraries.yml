@@ -1,0 +1,10 @@
+# Main theme library.
+global:
+  js:
+    js/global.js: {}
+  css:
+    theme:
+      dist/css/theme.css: {}
+  dependencies:
+    - core/jquery
+    - core/drupal

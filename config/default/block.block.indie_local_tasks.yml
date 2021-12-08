@@ -1,0 +1,22 @@
+uuid: a9c76729-f010-4105-8790-daada282c491
+langcode: en
+status: true
+dependencies:
+  theme:
+    - indie
+_core:
+  default_config_hash: X9I1OB0W3WlWtrK-CNcg6hNWwa8wficanpH8pYnDZDE
+id: indie_local_tasks
+theme: indie
+region: content
+weight: -40
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: Tabs
+  provider: core
+  label_display: '0'
+  primary: true
+  secondary: true
+visibility: {  }
