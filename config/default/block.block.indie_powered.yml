@@ -1,6 +1,6 @@
 uuid: a78d1872-ffde-4cb7-ad11-465571ec1d73
 langcode: en
-status: true
+status: false
 dependencies:
   module:
     - system
@@ -11,7 +11,7 @@ _core:
 id: indie_powered
 theme: indie
 region: header
-weight: 10
+weight: -5
 provider: null
 plugin: system_powered_by_block
 settings:

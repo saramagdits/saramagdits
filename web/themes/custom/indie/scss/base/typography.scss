@@ -1,0 +1,22 @@
+html, body {
+  background-color: #282828;
+}
+
+* {
+  //font-family: system-ui, -apple-system, BlinkMacSystemFont;
+  font-family: "Operator Mono", Inconsolata, Monaco, Consolas, "Andale Mono", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
+  color: #FDE8E0;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: "Operator Mono", Inconsolata, Monaco, Consolas, "Andale Mono", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
+  color: #55AA8D;
+}
+
+a {
+  color: #FF00FF;
+}
+
+input, select, textarea {
+  color: #282828;
+}
