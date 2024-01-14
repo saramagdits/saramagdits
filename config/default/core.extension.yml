@@ -1,3 +1,5 @@
+_core:
+  default_config_hash: R4IF-ClDHXxblLcG0L7MgsLvfBIMAvi_skumNFQwkDc
 module:
   admin_toolbar: 0
   admin_toolbar_tools: 0
@@ -33,6 +35,7 @@ module:
   media_library: 0
   menu_link_content: 0
   menu_ui: 0
+  mysql: 0
   node: 0
   options: 0
   page_cache: 0
@@ -62,5 +65,3 @@ theme:
   stark: 0
   indie: 0
 profile: standard
-_core:
-  default_config_hash: R4IF-ClDHXxblLcG0L7MgsLvfBIMAvi_skumNFQwkDc

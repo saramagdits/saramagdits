@@ -12,12 +12,12 @@ pattern: 'tags/[term:name]'
 selection_criteria:
   b152a7c8-b88a-41a5-ac67-f353ce90b768:
     id: 'entity_bundle:taxonomy_term'
-    bundles:
-      tags: tags
     negate: false
+    uuid: b152a7c8-b88a-41a5-ac67-f353ce90b768
     context_mapping:
       taxonomy_term: taxonomy_term
-    uuid: b152a7c8-b88a-41a5-ac67-f353ce90b768
+    bundles:
+      tags: tags
 selection_logic: and
 weight: -5
 relationships: {  }

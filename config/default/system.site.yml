@@ -1,4 +1,7 @@
-uuid: c1d57058-fbde-44e8-ba96-3b9d6e113577
+_core:
+  default_config_hash: yTxtFqBHnEWxQswuWvkjE8mKw2t8oKuCL1q8KnfHuGE
+langcode: en
+uuid: 8d243f8f-65a9-45a7-96b7-2e1bd28a4df4
 name: 'Sara Magdits'
 mail: admin@example.com
 slogan: ''
@@ -8,8 +11,5 @@ page:
   front: /node
 admin_compact_mode: false
 weight_select_max: 100
-langcode: en
 default_langcode: en
-_core:
-  default_config_hash: yTxtFqBHnEWxQswuWvkjE8mKw2t8oKuCL1q8KnfHuGE
 mail_notification: ''

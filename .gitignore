@@ -46,4 +46,4 @@ docksal-local.yml
 *.log
 *.sql
 *.sql.gz
-
+/db

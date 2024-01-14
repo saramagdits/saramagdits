@@ -1,13 +1,13 @@
-font_size: 16
 _core:
   default_config_hash: N7xZnv-ntKe1d_CqF7-BxGeX6UeFMW6yjEIF6lF3YmM
+favicon:
+  use_default: true
 features:
-  node_user_picture: false
   comment_user_picture: true
   comment_user_verification: true
   favicon: true
+  node_user_picture: false
 logo:
-  use_default: false
   path: ''
-favicon:
-  use_default: true
+  use_default: false
+font_size: 16
