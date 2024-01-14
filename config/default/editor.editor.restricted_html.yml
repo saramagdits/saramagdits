@@ -1,12 +1,12 @@
-uuid: a929cffb-729b-4175-ac31-52e018513cfe
+uuid: 5945a889-4759-4e22-a1e1-146e4a7ba978
 langcode: en
 status: true
 dependencies:
   config:
-    - filter.format.basic_html
+    - filter.format.restricted_html
   module:
     - ckeditor5
-format: basic_html
+format: restricted_html
 editor: ckeditor5
 settings:
   toolbar:
@@ -35,12 +35,10 @@ settings:
         - '<dl>'
         - '<dt>'
         - '<dd>'
-        - '<span>'
         - '<a hreflang>'
         - '<blockquote cite>'
         - '<ul type>'
         - '<ol type>'
-        - '<img src alt height width data-entity-type data-entity-uuid data-align data-caption>'
         - '<h2 id>'
         - '<h3 id>'
         - '<h4 id>'
