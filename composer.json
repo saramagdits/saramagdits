@@ -26,6 +26,7 @@
         "drupal/focal_point": "^2.0",
         "drupal/pathauto": "^1.8",
         "drupal/rabbit_hole": "^1.0@beta",
+        "drupal/upgrade_status": "^4.0",
         "drush/drush": "^10.6"
     },
     "conflict": {
