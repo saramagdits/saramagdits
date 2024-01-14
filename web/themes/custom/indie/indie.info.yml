@@ -3,7 +3,7 @@ type: theme
 base theme: false
 description: Custom theme for saramagdits.com.
 package: Custom
-core_version_requirement: ^9
+core_version_requirement: ^10
 libraries:
   - indie/global
 regions:
