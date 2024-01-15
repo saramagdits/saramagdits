@@ -1,0 +1,7 @@
+field.value.family_restricted_content:
+  type: mapping
+  label: Default value
+  mapping:
+    value:
+      type: label
+      label: Value

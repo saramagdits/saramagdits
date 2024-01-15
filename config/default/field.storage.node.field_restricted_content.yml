@@ -1,0 +1,19 @@
+uuid: 58668d2a-5a4f-4d04-a181-a951c0e4a174
+langcode: en
+status: true
+dependencies:
+  module:
+    - family
+    - node
+id: node.field_restricted_content
+field_name: field_restricted_content
+entity_type: node
+type: family_restricted_content
+settings: {  }
+module: family
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

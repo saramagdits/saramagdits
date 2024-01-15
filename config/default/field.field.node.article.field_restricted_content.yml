@@ -1,0 +1,25 @@
+uuid: d15cab28-23f5-4314-abe8-6da0d785a8ba
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_restricted_content
+    - node.type.article
+  module:
+    - family
+id: node.article.field_restricted_content
+field_name: field_restricted_content
+entity_type: node
+bundle: article
+label: 'Restricted Content'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: '0'
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: family_restricted_content
