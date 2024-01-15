@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Family module.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function family_uninstall() {
+  // Delete all family role config.
+  \Drupal::configFactory()->getEditable('system.action.user_add_role_action.family')->delete();
+  \Drupal::configFactory()->getEditable('system.action.user_remove_role_action.family')->delete();
+  \Drupal::configFactory()->getEditable('user.role.family')->delete();
+}

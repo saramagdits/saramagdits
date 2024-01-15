@@ -1,0 +1,16 @@
+uuid: 4e4237ba-273e-4fb0-bd0a-d6861f2fb506
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.family
+  module:
+    - user
+_core:
+  default_config_hash: 2ehP9UIkk5Mh0i1x1tIwZR6M_ZQJ6cDYZ1p8tCxzv-A
+id: user_add_role_action.family
+label: 'Add the Family role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: family

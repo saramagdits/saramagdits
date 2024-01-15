@@ -1,0 +1,8 @@
+name: 'Family'
+type: module
+description: 'Provides permissions and extra features for the family user role.'
+package: Custom
+core_version_requirement: ^10
+dependencies:
+  module: family
+  enforced: family

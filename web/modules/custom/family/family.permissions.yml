@@ -1,0 +1,4 @@
+view family media:
+  title: 'View family media'
+  description: 'Gives the user access to family-only media.'
+  restrict access: true

@@ -1,0 +1,16 @@
+uuid: 0a24b85d-5cc6-4349-bfb3-97f18cab961c
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.family
+  module:
+    - user
+_core:
+  default_config_hash: JME-TM5emJBLw-tLl8ebajBij3VhehZQYGjr63di3fU
+id: user_remove_role_action.family
+label: 'Remove the Family role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: family

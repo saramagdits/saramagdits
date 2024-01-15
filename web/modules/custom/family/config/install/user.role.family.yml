@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - family
+id: family
+label: Family
+weight: -8
+is_admin: null
+permissions:
+  - 'view family media'

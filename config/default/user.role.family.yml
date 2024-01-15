@@ -1,0 +1,14 @@
+uuid: f6585c68-0270-4d71-a7e7-5ab6ad776201
+langcode: en
+status: true
+dependencies:
+  module:
+    - family
+_core:
+  default_config_hash: 7FYaxqbOBRZ8_CcmKXLlNw9rLezmN9aOEMb16lIUE90
+id: family
+label: Family
+weight: -8
+is_admin: null
+permissions:
+  - 'view family media'
