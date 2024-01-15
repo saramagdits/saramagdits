@@ -13,4 +13,12 @@ function family_uninstall() {
   \Drupal::configFactory()->getEditable('system.action.user_add_role_action.family')->delete();
   \Drupal::configFactory()->getEditable('system.action.user_remove_role_action.family')->delete();
   \Drupal::configFactory()->getEditable('user.role.family')->delete();
+
+  // Remove the family role from users that possess it.
+  $usersWithRole = \Drupal::entityTypeManager()->getStorage('user')
+    ->loadByProperties(['roles' => 'family']);
+  foreach($usersWithRole as $user) {
+    $user->removeRole('family');
+    $user->save();
+  }
 }
