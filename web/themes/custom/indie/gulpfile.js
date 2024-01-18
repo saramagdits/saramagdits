@@ -27,7 +27,7 @@ const paths = {
 };
 
 // Browser sync vars.
-  let bsHost = 'https://saramagdits.docksal/',
+  let bsHost = 'https://saramagdits.docksal.site/',
   bsHttps = true;
 
 // Require local config to override variables.
