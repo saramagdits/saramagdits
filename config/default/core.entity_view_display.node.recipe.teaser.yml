@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.recipe.field_category
+    - field.field.node.recipe.field_recipe_image
     - field.field.node.recipe.recipe_cook_time
     - field.field.node.recipe.recipe_description
     - field.field.node.recipe.recipe_ingredient
@@ -16,6 +17,7 @@ dependencies:
     - field.field.node.recipe.recipe_yield_unit
     - node.type.recipe
   module:
+    - media
     - text
     - user
 _core:
@@ -25,10 +27,21 @@ targetEntityType: node
 bundle: recipe
 mode: teaser
 content:
+  field_recipe_image:
+    type: media_thumbnail
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 1
+    region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 1
+    weight: 2
     region: content
   recipe_description:
     type: text_summary_or_trimmed
