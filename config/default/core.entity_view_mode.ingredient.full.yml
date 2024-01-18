@@ -1,0 +1,13 @@
+uuid: f3354750-3f64-4f7f-b1fb-8b7d9a0422fa
+langcode: en
+status: true
+dependencies:
+  module:
+    - ingredient
+_core:
+  default_config_hash: wY72hcaayVHgYE0bYLOhLFy5Hsh1aLUExKgg2KVMaAk
+id: ingredient.full
+label: 'Ingredient page'
+description: ''
+targetEntityType: ingredient
+cache: true

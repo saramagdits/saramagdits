@@ -1,0 +1,8 @@
+uuid: b0cf9621-122e-44cc-97ad-9e626381a482
+langcode: en
+status: true
+dependencies: {  }
+name: 'Recipe Category'
+vid: recipe_category
+description: ''
+weight: 0

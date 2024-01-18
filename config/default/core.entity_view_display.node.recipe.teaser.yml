@@ -1,0 +1,52 @@
+uuid: 82820e45-d86e-47cc-bb9a-a453f61f0baa
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.recipe.field_category
+    - field.field.node.recipe.recipe_cook_time
+    - field.field.node.recipe.recipe_description
+    - field.field.node.recipe.recipe_ingredient
+    - field.field.node.recipe.recipe_instructions
+    - field.field.node.recipe.recipe_notes
+    - field.field.node.recipe.recipe_prep_time
+    - field.field.node.recipe.recipe_source
+    - field.field.node.recipe.recipe_yield_amount
+    - field.field.node.recipe.recipe_yield_unit
+    - node.type.recipe
+  module:
+    - text
+    - user
+_core:
+  default_config_hash: Bfs59DinIru-_S6VodQyzqCmUXfD59-eMCh60WwFJO4
+id: node.recipe.teaser
+targetEntityType: node
+bundle: recipe
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  recipe_description:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  field_category: true
+  recipe_cook_time: true
+  recipe_ingredient: true
+  recipe_instructions: true
+  recipe_notes: true
+  recipe_prep_time: true
+  recipe_source: true
+  recipe_total_time: true
+  recipe_yield: true
+  recipe_yield_amount: true
+  recipe_yield_unit: true

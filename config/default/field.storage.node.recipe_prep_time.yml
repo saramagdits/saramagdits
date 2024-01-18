@@ -1,0 +1,22 @@
+uuid: 80bbc10c-2444-4d1b-8780-305a85f72988
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: YqZgf2xlfU74Ic9p60u0__RD6azN6ELZtWM0-GCbf3w
+id: node.recipe_prep_time
+field_name: recipe_prep_time
+entity_type: node
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

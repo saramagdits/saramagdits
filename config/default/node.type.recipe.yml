@@ -1,0 +1,24 @@
+uuid: f6bcebd8-1f7b-40d5-bc6e-22654b888325
+langcode: en
+status: true
+dependencies:
+  module:
+    - recipe
+  enforced:
+    module:
+      - recipe
+third_party_settings:
+  recipe:
+    total_time_label: 'Total time'
+    total_time_label_display: above
+    yield_label: Yield
+    yield_label_display: above
+_core:
+  default_config_hash: rsN6ea8JR1jm75lJHo0zxaZq-yWPNoazBPomu9REZ9U
+name: Recipe
+type: recipe
+description: 'Share your favorite recipes with your fellow cooks.'
+help: ''
+new_revision: false
+preview_mode: 1
+display_submitted: true

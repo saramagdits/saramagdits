@@ -1,0 +1,23 @@
+uuid: 4dac99f3-3604-4e32-85e5-182bd05e7fb6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.recipe_yield_unit
+    - node.type.recipe
+_core:
+  default_config_hash: dxeSMokAhfXkgMgPUO32QTfHVT8SI8jf-ZBJnYpXYyM
+id: node.recipe.recipe_yield_unit
+field_name: recipe_yield_unit
+entity_type: node
+bundle: recipe
+label: 'Yield units'
+description: 'The units for the yield field, e.g. servings, people, cans, cookies, etc.'
+required: false
+translatable: false
+default_value:
+  -
+    value: Servings
+default_value_callback: ''
+settings: {  }
+field_type: string

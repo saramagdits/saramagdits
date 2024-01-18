@@ -1,0 +1,24 @@
+uuid: 733fe1ed-e25b-4e2a-aaaa-4025e8a883d0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.recipe_instructions
+    - node.type.recipe
+  module:
+    - text
+_core:
+  default_config_hash: m8N-8lUvhP-nwGhQko3i6DreuJwP9Pw62iTQf_JOsKU
+id: node.recipe.recipe_instructions
+field_name: recipe_instructions
+entity_type: node
+bundle: recipe
+label: Instructions
+description: 'Step by step instructions on how to prepare and cook the recipe.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

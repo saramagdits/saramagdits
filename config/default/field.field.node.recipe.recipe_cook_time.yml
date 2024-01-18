@@ -1,0 +1,30 @@
+uuid: 91d6e172-f66a-40e7-9acf-5533e61904d3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.recipe_cook_time
+    - node.type.recipe
+  module:
+    - recipe
+third_party_settings:
+  recipe:
+    total_time: true
+_core:
+  default_config_hash: cuTdBo_hTJrNxLMbUJ1fLo0XtNOANdWoUn4AvdijNow
+id: node.recipe.recipe_cook_time
+field_name: recipe_cook_time
+entity_type: node
+bundle: recipe
+label: 'Cooking time'
+description: 'How long does this recipe take to cook, in <strong>minutes</strong>?'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 0
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

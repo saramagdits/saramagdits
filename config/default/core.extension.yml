@@ -29,6 +29,7 @@ module:
   help: 0
   history: 0
   image: 0
+  ingredient: 0
   link: 0
   media: 0
   media_library: 0
@@ -42,6 +43,8 @@ module:
   path_alias: 0
   phpass: 0
   rabbit_hole: 0
+  rdf: 0
+  recipe: 0
   search: 0
   shortcut: 0
   system: 0

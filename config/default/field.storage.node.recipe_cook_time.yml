@@ -1,0 +1,22 @@
+uuid: f8d317f2-2561-4a5b-a65a-b9c8a940b79c
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: C_b9ltFfWLSzbxVQZiMduVmCrAVeBD55TgeUZgeyPEk
+id: node.recipe_cook_time
+field_name: recipe_cook_time
+entity_type: node
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

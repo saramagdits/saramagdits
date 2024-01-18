@@ -1,0 +1,22 @@
+uuid: 3084f3fa-92b1-40af-88ab-454ec50de980
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: YLIg1_YoHwrla5scLF3xELvg_Mvyyz_JH5w98p0gvSw
+id: node.recipe_yield_amount
+field_name: recipe_yield_amount
+entity_type: node
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
