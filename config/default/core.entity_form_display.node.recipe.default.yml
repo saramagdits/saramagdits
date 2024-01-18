@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.recipe.field_category
+    - field.field.node.recipe.field_net_carbs
     - field.field.node.recipe.field_recipe_image
     - field.field.node.recipe.recipe_cook_time
     - field.field.node.recipe.recipe_description
@@ -29,7 +30,7 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 13
+    weight: 14
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -39,22 +40,29 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_net_carbs:
+    type: number
+    weight: 10
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
   field_recipe_image:
     type: media_library_widget
-    weight: 11
+    weight: 12
     region: content
     settings:
       media_types: {  }
     third_party_settings: {  }
   path:
     type: path
-    weight: 16
+    weight: 17
     region: content
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    weight: 14
+    weight: 15
     region: content
     settings:
       display_label: true
@@ -107,7 +115,7 @@ content:
     third_party_settings: {  }
   recipe_source:
     type: text_textarea
-    weight: 10
+    weight: 11
     region: content
     settings:
       rows: 3
@@ -130,14 +138,14 @@ content:
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 17
+    weight: 18
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 15
+    weight: 16
     region: content
     settings:
       display_label: true
@@ -152,7 +160,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 12
+    weight: 13
     region: content
     settings:
       match_operator: CONTAINS

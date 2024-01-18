@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.recipe.field_category
+    - field.field.node.recipe.field_net_carbs
     - field.field.node.recipe.field_recipe_image
     - field.field.node.recipe.recipe_cook_time
     - field.field.node.recipe.recipe_description
@@ -27,6 +28,14 @@ targetEntityType: node
 bundle: recipe
 mode: teaser
 content:
+  field_category:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
   field_recipe_image:
     type: media_thumbnail
     label: hidden
@@ -36,12 +45,12 @@ content:
       image_loading:
         attribute: lazy
     third_party_settings: {  }
-    weight: 1
+    weight: 2
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 2
+    weight: 3
     region: content
   recipe_description:
     type: text_summary_or_trimmed
@@ -49,10 +58,10 @@ content:
     settings:
       trim_length: 600
     third_party_settings: {  }
-    weight: 0
+    weight: 1
     region: content
 hidden:
-  field_category: true
+  field_net_carbs: true
   recipe_cook_time: true
   recipe_ingredient: true
   recipe_instructions: true

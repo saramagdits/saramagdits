@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.recipe.field_category
+    - field.field.node.recipe.field_net_carbs
     - field.field.node.recipe.field_recipe_image
     - field.field.node.recipe.recipe_cook_time
     - field.field.node.recipe.recipe_description
@@ -35,6 +36,15 @@ content:
     third_party_settings: {  }
     weight: 2
     region: content
+  field_net_carbs:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 10
+    region: content
   field_recipe_image:
     type: entity_reference_entity_view
     label: hidden
@@ -47,7 +57,7 @@ content:
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 11
+    weight: 12
     region: content
   recipe_cook_time:
     type: recipe_duration
@@ -99,7 +109,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 10
+    weight: 11
     region: content
   recipe_total_time:
     settings: {  }

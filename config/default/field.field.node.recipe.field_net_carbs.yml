@@ -1,0 +1,28 @@
+uuid: ac91b1d3-9135-442d-b197-d9eeaa81820a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_net_carbs
+    - node.type.recipe
+  module:
+    - recipe
+third_party_settings:
+  recipe:
+    total_time: false
+id: node.recipe.field_net_carbs
+field_name: field_net_carbs
+entity_type: node
+bundle: recipe
+label: 'Net carbs'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer
