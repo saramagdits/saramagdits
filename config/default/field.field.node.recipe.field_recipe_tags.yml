@@ -1,0 +1,29 @@
+uuid: 28955f8b-42cc-4d33-953b-8b442e6dc676
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_recipe_tags
+    - node.type.recipe
+    - taxonomy.vocabulary.recipe_tags
+id: node.recipe.field_recipe_tags
+field_name: field_recipe_tags
+entity_type: node
+bundle: recipe
+label: Tags
+description: 'Helps users filter by relevant ingredients. '
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      recipe_tags: recipe_tags
+    sort:
+      field: name
+      direction: asc
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

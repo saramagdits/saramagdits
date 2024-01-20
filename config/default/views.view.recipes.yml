@@ -7,6 +7,7 @@ dependencies:
     - node.type.recipe
     - system.menu.main
     - taxonomy.vocabulary.recipe_category
+    - taxonomy.vocabulary.recipe_tags
   module:
     - node
     - taxonomy
@@ -436,6 +437,54 @@ display:
           reduce_duplicates: false
           vid: recipe_category
           type: select
+          hierarchy: false
+          limit: true
+          error_message: true
+        field_recipe_tags_target_id:
+          id: field_recipe_tags_target_id
+          table: node__field_recipe_tags
+          field: field_recipe_tags_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_recipe_tags_target_id_op
+            label: Ingredients
+            description: ''
+            use_operator: false
+            operator: field_recipe_tags_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_recipe_tags_target_id
+            required: false
+            remember: false
+            multiple: true
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              family: '0'
+              administrator: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: recipe_tags
+          type: textfield
           hierarchy: false
           limit: true
           error_message: true

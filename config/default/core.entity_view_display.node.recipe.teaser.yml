@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.recipe.field_category
     - field.field.node.recipe.field_net_carbs
     - field.field.node.recipe.field_recipe_image
+    - field.field.node.recipe.field_recipe_tags
     - field.field.node.recipe.recipe_cook_time
     - field.field.node.recipe.recipe_description
     - field.field.node.recipe.recipe_ingredient
@@ -47,10 +48,18 @@ content:
     third_party_settings: {  }
     weight: 2
     region: content
+  field_recipe_tags:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 3
+    region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 3
+    weight: 4
     region: content
   recipe_description:
     type: text_summary_or_trimmed

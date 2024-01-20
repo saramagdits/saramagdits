@@ -1,0 +1,8 @@
+uuid: f305cf4b-837f-45d0-8a94-29cfd58b1b8d
+langcode: en
+status: true
+dependencies: {  }
+name: 'Recipe tags'
+vid: recipe_tags
+description: ''
+weight: 0
