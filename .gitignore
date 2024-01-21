@@ -47,3 +47,5 @@ docksal-local.yml
 *.sql
 *.sql.gz
 /db
+
+web/sites/development.services.yml
