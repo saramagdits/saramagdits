@@ -1,0 +1,13 @@
+uuid: 59ba5efb-8171-430a-9881-884be50bff5f
+langcode: en
+status: false
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: o4upP70gPTf5u6859CZ34eDu8Au-VsMU7XjBDiKiw2c
+id: node.indieweb_microformat
+label: Microformat
+description: ''
+targetEntityType: node
+cache: true

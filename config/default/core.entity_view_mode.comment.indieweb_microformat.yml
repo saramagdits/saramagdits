@@ -1,0 +1,13 @@
+uuid: 3238b9a0-c42d-4e7e-ae69-66362729b1cb
+langcode: en
+status: false
+dependencies:
+  module:
+    - comment
+_core:
+  default_config_hash: 25JEl_n0_Mi0qsnoWLVcWpvotra4FecaCBgr5jsIMqo
+id: comment.indieweb_microformat
+label: Microformat
+description: ''
+targetEntityType: comment
+cache: true

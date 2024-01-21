@@ -2,8 +2,10 @@ header {
   text-align: center;
   margin-bottom: $section-margin-bottom;
   #block-indie-branding {
-    a {
+    a.site-name {
       font-size: 2rem;
+      margin-bottom: $section-margin-bottom;
+      display: inline-block;
     }
   }
 }
