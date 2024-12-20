@@ -26,6 +26,7 @@
         "drupal/focal_point": "^2.0",
         "drupal/indieweb": "^1.20",
         "drupal/pathauto": "^1.12",
+        "drupal/qrcode_generator": "^1.0@alpha",
         "drupal/rabbit_hole": "^1.0@beta",
         "drupal/rdf": "^2.1",
         "drupal/recipe": "^2.1",

@@ -43,6 +43,7 @@ module:
   path: 0
   path_alias: 0
   phpass: 0
+  qrcode_generator: 0
   rabbit_hole: 0
   recipe: 0
   search: 0
