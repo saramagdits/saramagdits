@@ -1,0 +1,29 @@
+uuid: 59fa6303-ca89-416b-bcac-d7281cd44a38
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.media_comment
+    - field.storage.comment.field_image
+    - media.type.image
+id: comment.media_comment.field_image
+field_name: field_image
+entity_type: comment
+bundle: media_comment
+label: Image
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

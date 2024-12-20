@@ -25,6 +25,7 @@ permissions:
   - 'access shortcuts'
   - 'access site-wide contact form'
   - 'delete own files'
+  - 'edit own comments'
   - 'post comments'
   - 'search content'
   - 'skip comment approval'

@@ -1,0 +1,8 @@
+uuid: 3dfd5241-a7d0-4f77-994c-3b2bdbbce24d
+langcode: en
+status: true
+dependencies: {  }
+id: media_comment
+label: 'Media comments'
+target_entity_type_id: node
+description: 'Comment with text and optional image upload'

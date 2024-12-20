@@ -3,9 +3,15 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_display.comment.media_comment.default
     - field.field.node.page.body
+    - field.field.node.page.field_comments
+    - field.field.node.page.field_image
+    - image.style.large
     - node.type.page
   module:
+    - comment
+    - image
     - text
     - user
 _core:
@@ -22,7 +28,29 @@ content:
     third_party_settings: {  }
     weight: 100
     region: content
+  field_comments:
+    type: comment_default
+    label: above
+    settings:
+      view_mode: default
+      pager_id: 0
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  field_image:
+    type: image
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: large
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: -1
+    region: content
   links:
+    settings: {  }
+    third_party_settings: {  }
     weight: 101
     region: content
 hidden: {  }
