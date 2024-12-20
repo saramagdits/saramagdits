@@ -67,6 +67,7 @@ display:
             first: '« First'
             last: 'Last »'
           quantity: 9
+          pagination_heading_level: h4
       style:
         type: table
         options:

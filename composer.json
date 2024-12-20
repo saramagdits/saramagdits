@@ -27,6 +27,7 @@
         "drupal/indieweb": "^1.20",
         "drupal/pathauto": "^1.12",
         "drupal/rabbit_hole": "^1.0@beta",
+        "drupal/rdf": "^2.1",
         "drupal/recipe": "^2.1",
         "drush/drush": "^12"
     },

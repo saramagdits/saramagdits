@@ -18,7 +18,7 @@ _core:
 name: Recipe
 type: recipe
 description: 'Share your favorite recipes with your fellow cooks.'
-help: ''
+help: null
 new_revision: false
 preview_mode: 1
 display_submitted: true
