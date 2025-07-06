@@ -8,6 +8,7 @@ dependencies:
     - system.menu.main
     - taxonomy.vocabulary.tags
   module:
+    - gallery_grid
     - media
     - taxonomy
     - user
@@ -78,6 +79,7 @@ display:
         type: mini
         options:
           offset: 0
+          pagination_heading_level: h4
           items_per_page: 10
           total_pages: null
           id: 0
@@ -92,7 +94,6 @@ display:
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
-          pagination_heading_level: h4
       exposed_form:
         type: basic
         options:
@@ -205,7 +206,10 @@ display:
       style:
         type: gallery_grid
         options:
-          columns: 3
+          row_class: ''
+          default_row_class: false
+          uses_fields: false
+          columns: '3'
           gap: 1rem
       row:
         type: 'entity:media'
