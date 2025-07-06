@@ -1,0 +1,42 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a view of unformatted rows.
+ *
+ * Available variables:
+ * - title: The title of this group of rows. May be empty.
+ * - rows: A list of the view's row items.
+ *   - attributes: The row's HTML attributes.
+ *   - content: The row's content.
+ * - view: The view object.
+ * - default_row_class: A flag indicating whether default classes should be
+ *   used on rows.
+ *
+ * @see template_preprocess_views_view_unformatted()
+ *
+ * @ingroup themeable
+ */
+#}
+{% if title %}
+  <h3>{{ title }}</h3>
+{% endif %}
+
+<!-- Debug: Number of rows: {{ rows|length }} -->
+<!-- Debug: Options: {{ options|json_encode() }} -->
+
+<div class="gallery-grid" style="--grid-columns: {{ options.columns }}; --grid-gap: {{ options.gap }};">
+  {% for row in rows %}
+  <div{{ row.attributes.addClass('gallery-grid-item') }}>
+    <pre>{{ dump(row) }}</pre>
+    {% if row.content is iterable %}
+      {{ row.content|render }}
+    {% else %}
+      {{ row.content }}
+    {% endif %}
+  </div>
+{% endfor %}
+</div>
+
+{% if rows|length == 0 %}
+  <p>No rows found in the view.</p>
+{% endif %} 

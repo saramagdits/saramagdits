@@ -1,0 +1,64 @@
+/**
+ * Gallery Grid Styles
+ */
+
+/* Additional styling for gallery pages */
+.view-gallery .gallery-grid {
+  margin: 2rem 0;
+}
+
+.view-gallery .gallery-grid-item {
+  position: relative;
+  overflow: hidden;
+}
+
+.view-gallery .gallery-grid-item img {
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.view-gallery .gallery-grid-item::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.view-gallery .gallery-grid-item:hover::after {
+  opacity: 1;
+}
+
+/* Improve the media teaser display for gallery items */
+.media--type-image.media--view-mode-teaser {
+  margin: 0;
+}
+
+.media--type-image.media--view-mode-teaser .field--name-field-media-image {
+  margin: 0;
+}
+
+.media--type-image.media--view-mode-teaser .field--name-field-tags {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.media--type-image.media--view-mode-teaser .field--name-field-tags .field__item {
+  display: inline-block;
+  margin-right: 0.5rem;
+}
+
+.media--type-image.media--view-mode-teaser .field--name-field-tags .field__item a {
+  color: #666;
+  text-decoration: none;
+}
+
+.media--type-image.media--view-mode-teaser .field--name-field-tags .field__item a:hover {
+  color: #333;
+  text-decoration: underline;
+} 

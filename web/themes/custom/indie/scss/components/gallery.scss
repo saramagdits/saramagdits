@@ -1,0 +1,68 @@
+/**
+ * Gallery Grid Styles
+ */
+
+// Additional styling for gallery pages
+.view-gallery {
+  .gallery-grid {
+    margin: 2rem 0;
+  }
+
+  .gallery-grid-item {
+    position: relative;
+    overflow: hidden;
+    
+    // Ensure images maintain aspect ratio
+    img {
+      aspect-ratio: 1;
+      object-fit: cover;
+    }
+    
+    // Add a subtle overlay on hover
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    
+    &:hover::after {
+      opacity: 1;
+    }
+  }
+}
+
+// Improve the media teaser display for gallery items
+.media--type-image.media--view-mode-teaser {
+  margin: 0;
+  
+  .field--name-field-media-image {
+    margin: 0;
+  }
+  
+  .field--name-field-tags {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    
+    .field__item {
+      display: inline-block;
+      margin-right: 0.5rem;
+      
+      a {
+        color: #666;
+        text-decoration: none;
+        
+        &:hover {
+          color: #333;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+} 

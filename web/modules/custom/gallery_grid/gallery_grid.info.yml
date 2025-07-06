@@ -1,0 +1,5 @@
+name: Gallery Grid
+type: module
+description: 'Provides a grid layout style for gallery views.'
+core_version_requirement: ^9 || ^10
+package: Custom 

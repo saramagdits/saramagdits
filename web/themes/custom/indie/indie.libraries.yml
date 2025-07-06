@@ -5,6 +5,7 @@ global:
   css:
     theme:
       dist/css/theme.css: {}
+      css/gallery.css: {}
   dependencies:
     - core/jquery
     - core/drupal

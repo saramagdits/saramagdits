@@ -203,7 +203,10 @@ display:
           limit: true
           error_message: true
       style:
-        type: default
+        type: gallery_grid
+        options:
+          columns: 3
+          gap: 1rem
       row:
         type: 'entity:media'
         options:

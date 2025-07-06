@@ -1,0 +1,31 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Gallery Grid module.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function gallery_grid_theme() {
+  return [
+    'views_view_gallery_grid' => [
+      'variables' => [
+        'view' => NULL,
+        'options' => NULL,
+        'rows' => NULL,
+        'title' => NULL,
+      ],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_preprocess_views_view().
+ */
+function gallery_grid_preprocess_views_view(&$variables) {
+  if ($variables['view']->getStyle()->getPluginId() === 'gallery_grid') {
+    $variables['#attached']['library'][] = 'gallery_grid/gallery-grid';
+  }
+} 
