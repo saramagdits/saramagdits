@@ -1,65 +1,94 @@
-# Docksal powered Drupal 9 With Composer Installation
+# saramagdits.com
 
-This is a sample Drupal 9 with Composer installation pre-configured for use with Docksal.
+Personal portfolio and distributed web project built on Drupal 10.
 
-Features:
+**Stack**: Drupal 10.4, PHP 8.2, MySQL 8.0, Composer 2, Drush 12
 
-- Drupal 9 Composer Project
-- `fin init` [example](.docksal/commands/init)
-- Using the [default](.docksal/docksal.env#L9) Docksal LAMP stack with [image version pinning](.docksal/docksal.env#L13-L15)
-- PHP and MySQL settings overrides [examples](.docksal/etc)
+## Prerequisites
 
-## Setup instructions
+- [OrbStack](https://orbstack.dev/) — Docker runtime for macOS (replaces Docker Desktop)
+- [DDEV](https://ddev.readthedocs.io/en/stable/) — local development environment
 
-### Step #1: Docksal environment setup
+Install with Homebrew:
 
-**This is a one time setup - skip this if you already have a working Docksal environment.**
+```bash
+brew install orbstack
+brew install ddev/ddev/ddev
+```
 
-Follow [Docksal environment setup instructions](https://docs.docksal.io/getting-started/setup/)
+## Local setup
 
-### Step #2: Project setup
+1. Clone the repo:
 
-1. Clone this repo into your Projects directory
-
-    ```
-    git clone https://github.com/docksal/boilerplate-drupal9-composer.git drupal9
-    cd drupal9
-    ```
-
-2. Initialize the site
-
-    This will initialize local settings and install the site via drush
-
-    ```
-    fin init
-    ```
-   A `composer.lock` file will be generated. This file should be committed to your repository.
-
-3. Point your browser to
-
-    ```
-    http://drupal9.docksal
+    ```bash
+    git clone https://github.com/saramagdits/saramagdits.git
+    cd saramagdits
     ```
 
-When the automated install is complete the command line output will display the admin username and password.
+2. Start DDEV:
 
+    ```bash
+    ddev start
+    ```
 
-## More automation with 'fin init'
+3. Install dependencies:
 
-Site provisioning can be automated using `fin init`, which calls the shell script in [.docksal/commands/init](.docksal/commands/init).
-This script is meant to be modified per project. The one in this repo will give you a good starting example.
+    ```bash
+    ddev composer install
+    ```
 
-Some common tasks that can be handled by the init script (an other [custom commands](https://docs.docksal.io/fin/custom-commands/)):
+4. Install Drupal (fresh install) or import a database dump:
 
-- initialize local settings files for Docker Compose, Drupal, Behat, etc.
-- import DB or perform a site install
-- compile Sass
-- run DB updates, revert features, clear caches, etc.
-- enable/disable modules, update variables values
+    ```bash
+    # Fresh install
+    ddev drush site-install standard --account-name=admin --account-pass=admin -y
 
+    # Or import a dump
+    ddev import-db --file=path/to/dump.sql.gz
+    ```
 
-## Security notice
+5. Run any pending updates and clear caches:
 
-This repo is intended for quick start demos and includes a hardcoded value for `hash_salt` in `settings.php`.
-If you are basing your project code base on this repo, make sure you regenerate and update the `hash_salt` value.
-A new value can be generated with `drush ev '$hash = Drupal\Component\Utility\Crypt::randomBytesBase64(55); print $hash . "\n";'`
+    ```bash
+    ddev drush updb -y
+    ddev drush cr
+    ```
+
+6. Open the site:
+
+    ```bash
+    ddev launch
+    ```
+
+    Or navigate to `https://saramagdits.ddev.site`
+
+## Common commands
+
+```bash
+ddev drush <command>       # Run Drush commands
+ddev composer <command>    # Run Composer commands
+ddev describe              # Show project info and URLs
+ddev stop                  # Stop the environment
+ddev poweroff              # Stop all DDEV projects
+```
+
+## Project structure
+
+```
+web/                    Drupal docroot
+web/modules/custom/     Custom modules
+web/themes/custom/      Custom themes
+web/sites/default/      Site configuration and settings
+config/                 Exported Drupal configuration (sync)
+drush/                  Drush configuration
+infrastructure/         AWS CDK infrastructure code
+```
+
+## Configuration
+
+Drupal configuration is exported to `config/` and managed via `drush config-export/import`. After importing a database, sync configuration:
+
+```bash
+ddev drush cim -y
+ddev drush cr
+```
