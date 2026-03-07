@@ -61,7 +61,6 @@ module:
   views: 10
   standard: 1000
 theme:
-  seven: 0
   stark: 0
   indie: 0
 profile: standard
