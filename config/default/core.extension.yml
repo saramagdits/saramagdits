@@ -63,4 +63,5 @@ module:
 theme:
   stark: 0
   indie: 0
+  claro: 0
 profile: standard
