@@ -30,6 +30,7 @@
         "drupal/rabbit_hole": "^1.0@beta",
         "drupal/rdf": "^2.1",
         "drupal/recipe": "^2.1",
+        "drupal/upgrade_status": "^4.3",
         "drush/drush": "^12"
     },
     "conflict": {

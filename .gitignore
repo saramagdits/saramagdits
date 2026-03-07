@@ -51,5 +51,4 @@ infrastructure/node_modules/
 *.log
 *.sql
 *.sql.gz
-/db
-
+/backups

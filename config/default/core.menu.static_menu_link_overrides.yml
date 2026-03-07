@@ -14,14 +14,14 @@ definitions:
     expanded: false
     enabled: true
   user__logout:
-    weight: -46
     menu_name: main
     parent: ''
+    weight: -46
     expanded: false
     enabled: true
   user__page:
-    weight: -47
     menu_name: main
     parent: ''
-    enabled: true
+    weight: -47
     expanded: false
+    enabled: true
