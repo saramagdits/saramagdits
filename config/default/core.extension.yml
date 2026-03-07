@@ -62,7 +62,6 @@ module:
   standard: 1000
 theme:
   seven: 0
-  adminimal_theme: 0
   stark: 0
   indie: 0
 profile: standard

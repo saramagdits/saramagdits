@@ -41,8 +41,8 @@ export class SaramagditsStack extends cdk.Stack {
       description: 'Role for saramagdits.com EC2 instance - S3 backup writes + SSM',
     });
 
-    // Allow the EC2 instance to write backups to S3.
-    backupBucket.grantWrite(ec2Role);
+    // Allow the EC2 instance to read and write backups to S3.
+    backupBucket.grantReadWrite(ec2Role);
 
     // SSM Session Manager — enables browser-based SSH without opening port 22.
     // Optional but recommended: lets you connect via AWS console if SSH is lost.
