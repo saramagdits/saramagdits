@@ -1,0 +1,21 @@
+{
+  "version": "52.0.0",
+  "files": {
+    "61501e660b2a33de6bb13a658df9d8181f10c8a8215d8194d02a5501d9b973dd": {
+      "displayName": "SaramagditsStack Template",
+      "source": {
+        "path": "SaramagditsStack.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "813671876322-us-east-1-39275e9d": {
+          "bucketName": "cdk-hnb659fds-assets-813671876322-us-east-1",
+          "objectKey": "61501e660b2a33de6bb13a658df9d8181f10c8a8215d8194d02a5501d9b973dd.json",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::813671876322:role/cdk-hnb659fds-file-publishing-role-813671876322-us-east-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

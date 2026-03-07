@@ -1,0 +1,208 @@
+{
+ "Description": "Supporting infrastructure for saramagdits.com Drupal 10 site",
+ "Resources": {
+  "DrpalBackupsD5D41254": {
+   "Type": "AWS::S3::Bucket",
+   "Properties": {
+    "BucketEncryption": {
+     "ServerSideEncryptionConfiguration": [
+      {
+       "ServerSideEncryptionByDefault": {
+        "SSEAlgorithm": "AES256"
+       }
+      }
+     ]
+    },
+    "BucketName": "saramagdits-db-backups",
+    "LifecycleConfiguration": {
+     "Rules": [
+      {
+       "ExpirationInDays": 30,
+       "Id": "expire-old-backups",
+       "Status": "Enabled"
+      }
+     ]
+    },
+    "PublicAccessBlockConfiguration": {
+     "BlockPublicAcls": true,
+     "BlockPublicPolicy": true,
+     "IgnorePublicAcls": true,
+     "RestrictPublicBuckets": true
+    }
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "SaramagditsStack/DrpalBackups/Resource"
+   }
+  },
+  "Ec2InstanceRole212C84F4": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ec2.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Description": "Role for saramagdits.com EC2 instance - S3 backup writes + SSM",
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/AmazonSSMManagedInstanceCore"
+       ]
+      ]
+     }
+    ],
+    "RoleName": "saramagdits-ec2-role"
+   },
+   "Metadata": {
+    "aws:cdk:path": "SaramagditsStack/Ec2InstanceRole/Resource"
+   }
+  },
+  "Ec2InstanceRoleDefaultPolicy2AA5ADDB": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "s3:Abort*",
+        "s3:DeleteObject*",
+        "s3:PutObject",
+        "s3:PutObjectLegalHold",
+        "s3:PutObjectRetention",
+        "s3:PutObjectTagging",
+        "s3:PutObjectVersionTagging"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "DrpalBackupsD5D41254",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "DrpalBackupsD5D41254",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "Ec2InstanceRoleDefaultPolicy2AA5ADDB",
+    "Roles": [
+     {
+      "Ref": "Ec2InstanceRole212C84F4"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SaramagditsStack/Ec2InstanceRole/DefaultPolicy/Resource"
+   }
+  },
+  "Ec2InstanceProfile": {
+   "Type": "AWS::IAM::InstanceProfile",
+   "Properties": {
+    "InstanceProfileName": "saramagdits-ec2-instance-profile",
+    "Roles": [
+     {
+      "Ref": "Ec2InstanceRole212C84F4"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SaramagditsStack/Ec2InstanceProfile"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/0WISw6CMBBAz8K+jFj0ArpyJcEDmFqGZGhpCZ1KTNO7m8rC1ftIkKcjNJXaQq0HU1t6QXqw0kaoLTxTaCFdojbI4jq63bIgNUPqvcUyf+y8Jf0p+bebC6ycxm71I1nMucx75CVyFs4PCFM4vOUZWmiqKRDVa3RMM0K/8wvLrjAmnQAAAA=="
+   },
+   "Metadata": {
+    "aws:cdk:path": "SaramagditsStack/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "BackupBucketName": {
+   "Description": "S3 bucket name for MySQL backups",
+   "Value": {
+    "Ref": "DrpalBackupsD5D41254"
+   }
+  },
+  "InstanceProfileName": {
+   "Description": "Attach this instance profile to your existing EC2 instance",
+   "Value": "saramagdits-ec2-instance-profile"
+  },
+  "Ec2RoleName": {
+   "Description": "IAM role name for EC2 instance",
+   "Value": {
+    "Ref": "Ec2InstanceRole212C84F4"
+   }
+  },
+  "AttachProfileCommand": {
+   "Description": "Run this command to attach the instance profile to your EC2 instance",
+   "Value": "aws ec2 associate-iam-instance-profile --instance-id i-XXXXXXXXXXXXXXXXX --iam-instance-profile Name=saramagdits-ec2-instance-profile"
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

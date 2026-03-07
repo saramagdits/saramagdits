@@ -10,6 +10,7 @@
 # Sensitive information
 /web/sites/*/settings.php
 /web/sites/*/settings.local.php
+/web/sites/*/settings.ddev.php
 /web/sites/development.services.yml
 
 # Drupal's file directory
@@ -30,6 +31,9 @@ node_modules/
 # Local Docksal
 docksal-local.env
 docksal-local.yml
+
+# Infrastructure dependencies
+infrastructure/node_modules/
 
 # Packages
 *.7z
