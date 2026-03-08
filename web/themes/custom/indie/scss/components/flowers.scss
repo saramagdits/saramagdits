@@ -41,9 +41,3 @@ $flower-stem-green: #2ecc71;
   color: $flower-stem-green;
 }
 
-// Hide on small screens
-@media (max-width: 768px) {
-  .menu-flowers {
-    display: none;
-  }
-}
