@@ -1,4 +1,5 @@
 @use '../base/spacing' as *;
+@use '../base/colors' as *;
 
 // Main Menu
 #block-indie-main-menu {
@@ -34,4 +35,84 @@ header nav ul.menu li::after {
   content: '|';
   margin: 0 10px 0 10px;
   color: black;
+}
+
+// Footer Menu
+#block-indie-footer {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px dashed rgba($color-green, 0.3);
+
+  ul.menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+
+  > ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+
+  li {
+    list-style: none;
+    margin: 0;
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      color: $color-green;
+      padding: 0.5rem 0.75rem;
+      border: 1px solid rgba($color-green, 0.3);
+      border-radius: 4px;
+      transition: background-color 0.2s, border-color 0.2s;
+
+      &:hover,
+      &:focus {
+        background-color: rgba($color-green, 0.15);
+        border-color: $color-green;
+      }
+
+      &::before {
+        content: '';
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        background-color: $color-green;
+        mask-size: contain;
+        mask-repeat: no-repeat;
+        mask-position: center;
+        -webkit-mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+      }
+    }
+  }
+
+  // RSS / Subscribe link icon
+  .menu-item--rss a::before {
+    mask-image: url('../../node_modules/pixelarticons/svg/rss-square.svg');
+    -webkit-mask-image: url('../../node_modules/pixelarticons/svg/rss-square.svg');
+  }
+
+  // GitHub link icon
+  .menu-item--github a::before {
+    mask-image: url('../../node_modules/pixelarticons/svg/git-branch.svg');
+    -webkit-mask-image: url('../../node_modules/pixelarticons/svg/git-branch.svg');
+  }
+
+  // Contact link icon
+  .menu-item--contact a::before {
+    mask-image: url('../../node_modules/pixelarticons/svg/mail.svg');
+    -webkit-mask-image: url('../../node_modules/pixelarticons/svg/mail.svg');
+  }
 }

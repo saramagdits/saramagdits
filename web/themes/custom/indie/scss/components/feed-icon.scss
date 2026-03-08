@@ -1,0 +1,35 @@
+@use '../base/colors' as *;
+
+.feed-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: $color-green;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid rgba($color-green, 0.3);
+  border-radius: 4px;
+  transition: background-color 0.2s, border-color 0.2s;
+
+  &:hover,
+  &:focus {
+    background-color: rgba($color-green, 0.15);
+    border-color: $color-green;
+  }
+
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: $color-green;
+    mask-image: url('../../node_modules/pixelarticons/svg/rss-square.svg');
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    -webkit-mask-image: url('../../node_modules/pixelarticons/svg/rss-square.svg');
+    -webkit-mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+  }
+}
