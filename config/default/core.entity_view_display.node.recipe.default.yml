@@ -31,7 +31,7 @@ mode: default
 content:
   field_category:
     type: entity_reference_label
-    label: above
+    label: hidden
     settings:
       link: true
     third_party_settings: {  }
@@ -57,7 +57,7 @@ content:
     region: content
   field_recipe_tags:
     type: entity_reference_label
-    label: above
+    label: hidden
     settings:
       link: true
     third_party_settings: {  }
@@ -77,7 +77,7 @@ content:
     region: content
   recipe_description:
     type: text_default
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     weight: 1

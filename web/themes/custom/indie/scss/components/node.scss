@@ -1,6 +1,31 @@
 @use '../base/colors' as *;
 
+// =====================
+// Shared tag pill styles
+// =====================
+.node-tags,
+.node-teaser__tags {
+  .field__items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .field__item {
+    font-size: 0.8rem;
+
+    a {
+      border: 1px solid $color-green;
+      padding: 0.1rem 0.5rem;
+      border-radius: 3px;
+      text-decoration: none;
+    }
+  }
+}
+
+// =====================
 // Teaser card layout
+// =====================
 .node-teaser {
   display: flex;
   gap: 1.5rem;
@@ -37,25 +62,6 @@
   margin: 0 0.4rem;
 }
 
-.node-teaser__tags {
-  .field__items {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-  }
-
-  .field__item {
-    font-size: 0.8rem;
-
-    a {
-      border: 1px solid $color-green;
-      padding: 0.1rem 0.5rem;
-      border-radius: 3px;
-      text-decoration: none;
-    }
-  }
-}
-
 .node-teaser__footer {
   display: flex;
   justify-content: space-between;
@@ -72,4 +78,71 @@
   .node-teaser__media {
     width: 100%;
   }
+}
+
+// =====================
+// Full content view
+// =====================
+.node-full__meta {
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+.node-full__category {
+  color: $color-red;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+.node-full__separator {
+  margin: 0 0.4rem;
+}
+
+.node-full__image {
+  margin-bottom: 1.5rem;
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+.node-full__body {
+  margin-bottom: 1.5rem;
+}
+
+.node-full__recipe-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.node-full__recipe-meta-item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+
+  .field__label {
+    font-weight: 600;
+  }
+
+  // Separator dots between items
+  & + & {
+    &::before {
+      content: '·';
+      margin-right: 0.5rem;
+      color: $color-green;
+    }
+  }
+}
+
+.node-full__section {
+  margin-bottom: 1.5rem;
+}
+
+.node-tags {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
 }

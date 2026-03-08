@@ -3,71 +3,35 @@
  * @file
  * Default theme implementation to display a node.
  *
- * Available variables:
- * - node: The node entity with limited access to object properties and methods.
- *   Only method names starting with "get", "has", or "is" and a few common
- *   methods such as "id", "label", and "bundle" are available. For example:
- *   - node.getCreatedTime() will return the node creation timestamp.
- *   - node.hasField('field_example') returns TRUE if the node bundle includes
- *     field_example. (This does not indicate the presence of a value in this
- *     field.)
- *   - node.isPublished() will return whether the node is published or not.
- *   Calling other methods, such as node.delete(), will result in an exception.
- *   See \Drupal\node\Entity\Node for a full list of public properties and
- *   methods for the node object.
- * - label: (optional) The title of the node.
- * - content: All node items. Use {{ content }} to print them all,
- *   or print a subset such as {{ content.field_example }}. Use
- *   {{ content|without('field_example') }} to temporarily suppress the printing
- *   of a given child element.
- * - author_picture: The node author user entity, rendered using the "compact"
- *   view mode.
- * - metadata: Metadata for this node.
- * - date: (optional) Themed creation date field.
- * - author_name: (optional) Themed author name field.
- * - url: Direct URL of the current node.
- * - display_submitted: Whether submission information should be displayed.
- * - attributes: HTML attributes for the containing element.
- *   The attributes.class element may contain one or more of the following
- *   classes:
- *   - node: The current template type (also known as a "theming hook").
- *   - node--type-[type]: The current node type. For example, if the node is an
- *     "Article" it would result in "node--type-article". Note that the machine
- *     name will often be in a short form of the human readable label.
- *   - node--view-mode-[view_mode]: The View Mode of the node; for example, a
- *     teaser would result in: "node--view-mode-teaser", and
- *     full: "node--view-mode-full".
- *   The following are controlled through the node publishing options.
- *   - node--promoted: Appears on nodes promoted to the front page.
- *   - node--sticky: Appears on nodes ordered above other non-sticky nodes in
- *     teaser listings.
- *   - node--unpublished: Appears on unpublished nodes visible only to site
- *     admins.
- * - title_attributes: Same as attributes, except applied to the main title
- *   tag that appears in the template.
- * - content_attributes: Same as attributes, except applied to the main
- *   content tag that appears in the template.
- * - author_attributes: Same as attributes, except applied to the author of
- *   the node tag that appears in the template.
- * - title_prefix: Additional output populated by modules, intended to be
- *   displayed in front of the main title tag that appears in the template.
- * - title_suffix: Additional output populated by modules, intended to be
- *   displayed after the main title tag that appears in the template.
- * - view_mode: View mode; for example, "teaser" or "full".
- * - teaser: Flag for the teaser state. Will be true if view_mode is 'teaser'.
- * - page: Flag for the full page state. Will be true if view_mode is 'full'.
- * - readmore: Flag for more state. Will be true if the teaser content of the
- *   node cannot hold the main body content.
- * - logged_in: Flag for authenticated user status. Will be true when the
- *   current user is a logged-in member.
- * - is_admin: Flag for admin user status. Will be true when the current user
- *   is an administrator.
- *
- * @see template_preprocess_node()
- *
- * @ingroup themeable
+ * Full content view with structured layout:
+ * - Meta line (category + date)
+ * - Image
+ * - Body/description
+ * - Recipe metadata row (yield, times)
+ * - Recipe sections (ingredients, instructions, notes, source)
+ * - Tags
  */
 #}
+
+{% set recipe_fields = [
+  'field_category',
+  'field_recipe_image',
+  'field_image',
+  'field_recipe_tags',
+  'field_tags',
+  'recipe_description',
+  'body',
+  'recipe_yield',
+  'recipe_prep_time',
+  'recipe_cook_time',
+  'recipe_total_time',
+  'recipe_ingredient',
+  'recipe_instructions',
+  'recipe_notes',
+  'recipe_source',
+  'field_net_carbs',
+] %}
+
 <article{{ attributes }}>
 
   {{ title_prefix }}
@@ -78,18 +42,109 @@
   {% endif %}
   {{ title_suffix }}
 
-  {% if display_submitted %}
-    <footer>
-      {{ author_picture }}
-      <div{{ author_attributes }}>
-        {% trans %}{{ date }} by {{ author_name }}{% endtrans %}
-        {{ metadata }}
-      </div>
-    </footer>
+  {# Meta line: category + date #}
+  <div class="node-full__meta">
+    {% if content.field_category|render|trim %}
+      <span class="node-full__category">{{ content.field_category }}</span>
+      <span class="node-full__separator">&middot;</span>
+    {% endif %}
+    <span class="node-full__date">{{ date }}</span>
+  </div>
+
+  {# Image #}
+  {% if content.field_recipe_image|render|trim %}
+    <div class="node-full__image">
+      {{ content.field_recipe_image }}
+    </div>
+  {% elseif content.field_image|render|trim %}
+    <div class="node-full__image">
+      {{ content.field_image }}
+    </div>
   {% endif %}
 
+  {# Body/description #}
+  {% if content.recipe_description|render|trim %}
+    <div class="node-full__body">
+      {{ content.recipe_description }}
+    </div>
+  {% elseif content.body|render|trim %}
+    <div class="node-full__body">
+      {{ content.body }}
+    </div>
+  {% endif %}
+
+  {# Recipe metadata row: yield, prep, cook, total #}
+  {% set has_recipe_meta = content.recipe_yield|render|trim
+    or content.recipe_prep_time|render|trim
+    or content.recipe_cook_time|render|trim
+    or content.recipe_total_time|render|trim %}
+
+  {% if has_recipe_meta %}
+    <div class="node-full__recipe-meta">
+      {% if content.recipe_yield|render|trim %}
+        <div class="node-full__recipe-meta-item">
+          {{ content.recipe_yield }}
+        </div>
+      {% endif %}
+      {% if content.recipe_prep_time|render|trim %}
+        <div class="node-full__recipe-meta-item">
+          {{ content.recipe_prep_time }}
+        </div>
+      {% endif %}
+      {% if content.recipe_cook_time|render|trim %}
+        <div class="node-full__recipe-meta-item">
+          {{ content.recipe_cook_time }}
+        </div>
+      {% endif %}
+      {% if content.recipe_total_time|render|trim %}
+        <div class="node-full__recipe-meta-item">
+          {{ content.recipe_total_time }}
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {# Recipe sections: ingredients, instructions, notes, source #}
+  {% if content.recipe_ingredient|render|trim %}
+    <div class="node-full__section">
+      {{ content.recipe_ingredient }}
+    </div>
+  {% endif %}
+
+  {% if content.recipe_instructions|render|trim %}
+    <div class="node-full__section">
+      {{ content.recipe_instructions }}
+    </div>
+  {% endif %}
+
+  {% if content.recipe_notes|render|trim %}
+    <div class="node-full__section">
+      {{ content.recipe_notes }}
+    </div>
+  {% endif %}
+
+  {% if content.recipe_source|render|trim %}
+    <div class="node-full__section">
+      {{ content.recipe_source }}
+    </div>
+  {% endif %}
+
+  {% if content.field_net_carbs|render|trim %}
+    <div class="node-full__section">
+      {{ content.field_net_carbs }}
+    </div>
+  {% endif %}
+
+  {# Tags #}
+  {% if content.field_recipe_tags|render|trim %}
+    <div class="node-tags">{{ content.field_recipe_tags }}</div>
+  {% elseif content.field_tags|render|trim %}
+    <div class="node-tags">{{ content.field_tags }}</div>
+  {% endif %}
+
+  {# Remaining fields not explicitly placed #}
   <div{{ content_attributes }}>
-    {{ content }}
+    {{ content|without(recipe_fields) }}
   </div>
 
 </article>
