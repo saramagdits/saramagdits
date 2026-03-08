@@ -1,0 +1,75 @@
+@use '../base/colors' as *;
+
+// Teaser card layout
+.node-teaser {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.node-teaser__media {
+  flex-shrink: 0;
+  width: 200px;
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.node-teaser__content {
+  flex: 1;
+  min-width: 0;
+}
+
+.node-teaser__meta {
+  font-size: 0.85rem;
+  margin-bottom: 0.25rem;
+}
+
+.node-teaser__category {
+  color: $color-red;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+.node-teaser__separator {
+  margin: 0 0.4rem;
+}
+
+.node-teaser__tags {
+  .field__items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .field__item {
+    font-size: 0.8rem;
+
+    a {
+      border: 1px solid $color-green;
+      padding: 0.1rem 0.5rem;
+      border-radius: 3px;
+      text-decoration: none;
+    }
+  }
+}
+
+.node-teaser__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+// Mobile: stack vertically
+@media (max-width: 768px) {
+  .node-teaser {
+    flex-direction: column;
+  }
+
+  .node-teaser__media {
+    width: 100%;
+  }
+}

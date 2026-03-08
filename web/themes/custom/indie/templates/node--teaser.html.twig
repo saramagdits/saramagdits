@@ -1,0 +1,58 @@
+{#
+/**
+ * @file
+ * Theme implementation to display a node in teaser view mode.
+ *
+ * Compact horizontal layout: image left, content right.
+ * Stacks vertically on mobile.
+ */
+#}
+<article{{ attributes }}>
+  <div class="node-teaser">
+    {# Image — handle both recipe and article field names #}
+    {% if content.field_recipe_image|render|trim %}
+      <div class="node-teaser__media">
+        {{ content.field_recipe_image }}
+      </div>
+    {% elseif content.field_image|render|trim %}
+      <div class="node-teaser__media">
+        {{ content.field_image }}
+      </div>
+    {% endif %}
+
+    <div class="node-teaser__content">
+      {# Meta line: category + date #}
+      <div class="node-teaser__meta">
+        {% if content.field_category|render|trim %}
+          <span class="node-teaser__category">{{ content.field_category }}</span>
+          <span class="node-teaser__separator">&middot;</span>
+        {% endif %}
+        <span class="node-teaser__date">{{ date }}</span>
+      </div>
+
+      {# Title #}
+      {{ title_prefix }}
+      <h2{{ title_attributes }}>
+        <a href="{{ url }}" rel="bookmark">{{ label }}</a>
+      </h2>
+      {{ title_suffix }}
+
+      {# Body/description #}
+      {% if content.recipe_description|render|trim %}
+        {{ content.recipe_description }}
+      {% elseif content.body|render|trim %}
+        {{ content.body }}
+      {% endif %}
+
+      {# Footer: tags + read more #}
+      <div class="node-teaser__footer">
+        {% if content.field_recipe_tags|render|trim %}
+          <div class="node-teaser__tags">{{ content.field_recipe_tags }}</div>
+        {% elseif content.field_tags|render|trim %}
+          <div class="node-teaser__tags">{{ content.field_tags }}</div>
+        {% endif %}
+        {{ content.links }}
+      </div>
+    </div>
+  </div>
+</article>
