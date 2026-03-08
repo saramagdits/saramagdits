@@ -1,0 +1,68 @@
+@use '../base/colors' as *;
+
+.pager {
+  margin: 2rem 0;
+
+  &__items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.25rem;
+    flex-wrap: wrap;
+  }
+
+  &__item {
+    margin: 0;
+
+    a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 2.5rem;
+      height: 2.5rem;
+      padding: 0.25rem 0.75rem;
+      border: 1px solid rgba($color-green, 0.3);
+      border-radius: 4px;
+      color: $color-green;
+      text-decoration: none;
+      transition: background-color 0.2s, border-color 0.2s;
+
+      &:hover,
+      &:focus {
+        background-color: rgba($color-green, 0.15);
+        border-color: $color-green;
+      }
+    }
+
+    &.is-active {
+      a,
+      span {
+        background-color: $color-green;
+        color: $color-grey;
+        border-color: $color-green;
+        font-weight: 700;
+      }
+    }
+
+    &--ellipsis {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 2.5rem;
+      height: 2.5rem;
+      color: $color-white;
+    }
+
+    &--first,
+    &--previous,
+    &--next,
+    &--last {
+      a {
+        font-size: 0.875rem;
+      }
+    }
+  }
+}
