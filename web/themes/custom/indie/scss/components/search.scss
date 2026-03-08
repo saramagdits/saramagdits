@@ -1,12 +1,57 @@
 @use '../base/spacing' as *;
 
-// Search bar
+// Main site search
 #block-indie-search {
-margin-bottom: $section-margin-bottom;
-  h2 {}
+  margin-bottom: $section-margin-bottom;
+
+  h2 {
+    // visually hidden or styled as needed
+  }
+
   form {
-    * {
-      display: inline;
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-end;
+
+    .form-item {
+      flex: 1;
+    }
+
+    input[type="search"],
+    input[type="text"] {
+      width: 100%;
+    }
+  }
+}
+
+// Recipe search / views exposed filters
+form.views-exposed-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: flex-end;
+
+  .form-item {
+    flex: 1;
+    min-width: 150px;
+
+    input,
+    select {
+      width: 100%;
+      box-sizing: border-box;
+    }
+  }
+
+  .form-actions {
+    flex: none;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+
+    .form-item,
+    .form-actions {
+      width: 100%;
     }
   }
 }
