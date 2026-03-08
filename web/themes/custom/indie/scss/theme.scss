@@ -6,19 +6,19 @@ Description: Sass
 /**
  * Base - elements
  */
-@import "base/*";
+@use 'base';
 
 /**
  * Components - reusable components
  */
-@import "components/*";
+@use 'components';
 
 /**
  * Layouts - styles specific to the layout of the page
  */
-@import "layouts/*";
+@use 'layouts';
 
 /**
  * Theme - print styles
  */
-@import "theme/*";
+@use 'theme/print';

@@ -7,7 +7,6 @@ let gulp = require('gulp'),
   dartSass = require('sass'),
   gulpSass = require('gulp-sass'),
   sass = gulpSass(dartSass),
-  sassGlob = require('gulp-sass-glob'),
   del = require('del'),
   sourcemaps = require('gulp-sourcemaps'),
   postcss = require('gulp-postcss'),
@@ -48,7 +47,6 @@ async function styles() {
   await
    gulp.src([paths.scss.src])
     .pipe(sourcemaps.init())
-    .pipe(sassGlob())
     .pipe(sass({
       includePaths: ['node_modules/'],
       silenceDeprecations: ['legacy-js-api']
