@@ -1,0 +1,13 @@
+{#
+/**
+ * @file
+ * Theme override for media items in the gallery view mode.
+ *
+ * Wraps the thumbnail image in a link to the full-size image for modal display.
+ */
+#}
+<div{{ attributes.addClass('gallery-item') }}>
+  <a href="{{ gallery_full_url }}" class="gallery-item__link" data-gallery-alt="{{ gallery_alt }}">
+    {{ content.field_media_image }}
+  </a>
+</div>

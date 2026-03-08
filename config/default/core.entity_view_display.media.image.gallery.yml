@@ -1,0 +1,34 @@
+uuid: null
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.gallery
+    - field.field.media.image.field_media_image
+    - field.field.media.image.field_tags
+    - image.style.gallery_thumb
+    - media.type.image
+  module:
+    - image
+id: media.image.gallery
+targetEntityType: media
+bundle: image
+mode: gallery
+content:
+  field_media_image:
+    type: image
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: gallery_thumb
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  created: true
+  field_tags: true
+  name: true
+  thumbnail: true
+  uid: true

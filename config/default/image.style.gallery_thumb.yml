@@ -1,0 +1,15 @@
+uuid: null
+langcode: en
+status: true
+dependencies: {  }
+name: gallery_thumb
+label: 'Gallery Thumbnail'
+effects:
+  gallery_thumb_scale_crop:
+    uuid: null
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 300
+      height: 300
+      anchor: center-center

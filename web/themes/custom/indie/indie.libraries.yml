@@ -8,3 +8,9 @@ global:
   dependencies:
     - core/jquery
     - core/drupal
+
+gallery:
+  js:
+    js/gallery.js: {}
+  dependencies:
+    - core/drupal

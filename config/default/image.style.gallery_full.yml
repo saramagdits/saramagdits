@@ -1,0 +1,15 @@
+uuid: null
+langcode: en
+status: true
+dependencies: {  }
+name: gallery_full
+label: 'Gallery Full'
+effects:
+  gallery_full_scale:
+    uuid: null
+    id: image_scale
+    weight: 1
+    data:
+      width: 1200
+      height: null
+      upscale: false

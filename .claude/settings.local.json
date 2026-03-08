@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(find:*)",
-      "Bash(npx gulp:*)"
+      "Bash(npx gulp:*)",
+      "Bash(ls:*)"
     ]
   }
 }
