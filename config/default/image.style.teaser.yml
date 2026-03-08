@@ -1,0 +1,15 @@
+uuid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+langcode: en
+status: true
+dependencies: {  }
+name: teaser
+label: 'Teaser (400×400)'
+effects:
+  f7e8d9c0-b1a2-3456-7890-abcdef123456:
+    uuid: f7e8d9c0-b1a2-3456-7890-abcdef123456
+    id: image_scale
+    weight: 0
+    data:
+      width: 400
+      height: 400
+      upscale: false

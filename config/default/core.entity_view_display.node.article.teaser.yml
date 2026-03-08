@@ -9,7 +9,7 @@ dependencies:
     - field.field.node.article.field_image
     - field.field.node.article.field_restricted_content
     - field.field.node.article.field_tags
-    - image.style.medium
+    - image.style.teaser
     - node.type.article
   module:
     - image
@@ -35,7 +35,7 @@ content:
     label: hidden
     settings:
       image_link: content
-      image_style: medium
+      image_style: teaser
       image_loading:
         attribute: lazy
     third_party_settings: {  }

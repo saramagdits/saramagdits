@@ -17,7 +17,7 @@ dependencies:
     - field.field.node.recipe.recipe_source
     - field.field.node.recipe.recipe_yield_amount
     - field.field.node.recipe.recipe_yield_unit
-    - image.style.medium
+    - image.style.teaser
     - node.type.recipe
   module:
     - media
@@ -43,7 +43,7 @@ content:
     label: hidden
     settings:
       image_link: ''
-      image_style: medium
+      image_style: teaser
       image_loading:
         attribute: lazy
     third_party_settings: {  }

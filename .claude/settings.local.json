@@ -3,7 +3,8 @@
     "allow": [
       "Bash(find:*)",
       "Bash(npx gulp:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(grep:*)"
     ]
   }
 }

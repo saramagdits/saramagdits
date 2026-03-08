@@ -7,7 +7,7 @@ dependencies:
     - field.field.node.page.body
     - field.field.node.page.field_comments
     - field.field.node.page.field_image
-    - image.style.medium
+    - image.style.teaser
     - node.type.page
   module:
     - image
@@ -33,7 +33,7 @@ content:
     label: hidden
     settings:
       image_link: content
-      image_style: medium
+      image_style: teaser
       image_loading:
         attribute: lazy
     third_party_settings: {  }
