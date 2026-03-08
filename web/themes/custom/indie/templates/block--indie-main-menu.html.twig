@@ -1,0 +1,58 @@
+{% extends "block.html.twig" %}
+{#
+/**
+ * @file
+ * Theme override for the main menu block.
+ *
+ * Adds decorative text-character flowers above the menu.
+ */
+#}
+{% block content %}
+  <div class="menu-flowers" aria-hidden="true">
+
+    {# Flower 1: (@) with Y-fork stem #}
+    <span class="flower flower--1">
+      <span class="flower__head flower__head--pink">(@)</span>
+      <span class="flower__stem">Y</span>
+      <span class="flower__stem">|~</span>
+      <span class="flower__stem">|</span>
+    </span>
+
+    {# Flower 2: asterisk cluster with arrow base #}
+    <span class="flower flower--2">
+      <span class="flower__head flower__head--teal">&#10035;&#10035;</span>
+      <span class="flower__head flower__head--teal">&#10035;&#10035;</span>
+      <span class="flower__stem">&darr;</span>
+      <span class="flower__stem">|</span>
+      <span class="flower__stem">|</span>
+    </span>
+
+    {# Flower 3: ring of o's with * center #}
+    <span class="flower flower--3">
+      <span class="flower__head flower__head--white">o<span class="flower__head--pink">*</span>o</span>
+      <span class="flower__head flower__head--white">&nbsp;o&nbsp;</span>
+      <span class="flower__leaf">,b</span>
+      <span class="flower__stem">|</span>
+      <span class="flower__stem">|</span>
+    </span>
+
+    {# Flower 4: \w/ face #}
+    <span class="flower flower--4">
+      <span class="flower__head flower__head--teal">\&#xE4;/</span>
+      <span class="flower__stem">|</span>
+      <span class="flower__leaf">&mdash;</span>
+      <span class="flower__stem">|</span>
+    </span>
+
+    {# Flower 5: {e} curly #}
+    <span class="flower flower--5">
+      <span class="flower__head flower__head--teal">{&#x259;}</span>
+      <span class="flower__leaf">]</span>
+      <span class="flower__stem">|.</span>
+      <span class="flower__stem">|</span>
+    </span>
+
+  </div>
+
+  {{ content }}
+{% endblock %}

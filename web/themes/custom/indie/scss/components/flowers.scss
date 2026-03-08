@@ -1,0 +1,48 @@
+// Decorative text-character flowers above main menu
+$flower-stem-green: #2ecc71;
+
+.menu-flowers {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  padding: 0 2rem;
+  margin-bottom: 0.25rem;
+}
+
+.flower {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Operator Mono", "Courier New", monospace;
+  font-size: 0.85rem;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+// Varied heights via margin-top to create natural staggering
+.flower--1 { margin-top: 0; }
+.flower--2 { margin-top: 0.5rem; }
+.flower--3 { margin-top: 0.25rem; }
+.flower--4 { margin-top: 0.75rem; }
+.flower--5 { margin-top: 0.4rem; }
+
+.flower__head {
+  &--pink { color: $color-red; }
+  &--teal { color: $color-green; }
+  &--white { color: $color-white; }
+}
+
+.flower__stem {
+  color: $flower-stem-green;
+}
+
+.flower__leaf {
+  color: $flower-stem-green;
+}
+
+// Hide on small screens
+@media (max-width: 768px) {
+  .menu-flowers {
+    display: none;
+  }
+}

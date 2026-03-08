@@ -4,7 +4,9 @@
  */
 
 let gulp = require('gulp'),
-  sass = require('gulp-sass'),
+  dartSass = require('sass'),
+  gulpSass = require('gulp-sass'),
+  sass = gulpSass(dartSass),
   sassGlob = require('gulp-sass-glob'),
   del = require('del'),
   sourcemaps = require('gulp-sourcemaps'),
@@ -48,19 +50,10 @@ async function styles() {
     .pipe(sourcemaps.init())
     .pipe(sassGlob())
     .pipe(sass({
-      includePaths: ['node_modules/']
+      includePaths: ['node_modules/'],
+      silenceDeprecations: ['legacy-js-api']
     }).on('error', sass.logError))
-    .pipe(postcss([autoprefixer({
-      browsers: [
-        'Chrome >= 35',
-        'Firefox >= 38',
-        'Edge >= 12',
-        'iOS >= 8',
-        'Safari >= 8',
-        'Android 2.3',
-        'Android >= 4',
-        'Opera >= 12']
-    })]))
+    .pipe(postcss([autoprefixer()]))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest(paths.scss.dest))
     .pipe(browserSync.stream())
