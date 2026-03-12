@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.recipe.field_category
     - field.field.node.recipe.field_net_carbs
     - field.field.node.recipe.field_recipe_image
+    - field.field.node.recipe.field_recipe_source_photo
     - field.field.node.recipe.field_recipe_tags
     - field.field.node.recipe.recipe_cook_time
     - field.field.node.recipe.recipe_description
@@ -179,4 +180,5 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  field_recipe_source_photo: true

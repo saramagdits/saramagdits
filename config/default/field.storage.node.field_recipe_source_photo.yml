@@ -1,0 +1,32 @@
+uuid: f798f660-0b75-4135-9307-2eef7544c26b
+langcode: en
+status: true
+dependencies:
+  module:
+    - file
+    - image
+    - node
+_core:
+  default_config_hash: Wvvc4mgWYXrfyjBjJvo9-f_NKpfa6qr_RI3mI6zQ2b8
+id: node.field_recipe_source_photo
+field_name: field_recipe_source_photo
+entity_type: node
+type: image
+settings:
+  uri_scheme: public
+  default_image:
+    uuid: null
+    alt: ''
+    title: ''
+    width: null
+    height: null
+  target_type: file
+  display_default: true
+  display_field: false
+module: image
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

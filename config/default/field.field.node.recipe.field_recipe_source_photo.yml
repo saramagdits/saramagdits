@@ -1,0 +1,40 @@
+uuid: 0b835abf-17ce-4d1a-a83f-385bd79469a0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_recipe_source_photo
+    - node.type.recipe
+  module:
+    - image
+_core:
+  default_config_hash: VcNdDLIoDi0HvxhliLp9-q9AIEZMLFDorGg1aqWSENU
+id: node.recipe.field_recipe_source_photo
+field_name: field_recipe_source_photo
+entity_type: node
+bundle: recipe
+label: 'Source Photo'
+description: 'The original photo of the handwritten or printed recipe.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_extensions: 'png jpg jpeg webp'
+  file_directory: recipe-source-photos
+  max_filesize: '4 MB'
+  max_resolution: ''
+  min_resolution: ''
+  alt_field: false
+  alt_field_required: false
+  title_field: false
+  title_field_required: false
+  handler: 'default:file'
+  handler_settings: {  }
+  default_image:
+    uuid: null
+    alt: ''
+    title: ''
+    width: null
+    height: null
+field_type: image

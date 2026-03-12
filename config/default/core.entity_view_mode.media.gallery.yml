@@ -1,4 +1,4 @@
-uuid: null
+uuid: 07c4fc94-98bd-4d3d-8dba-12b29e00d983
 langcode: en
 status: true
 dependencies:
@@ -6,5 +6,6 @@ dependencies:
     - media
 id: media.gallery
 label: Gallery
+description: null
 targetEntityType: media
 cache: true
