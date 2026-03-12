@@ -4,7 +4,9 @@
       "Bash(find:*)",
       "Bash(npx gulp:*)",
       "Bash(ls:*)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "WebSearch",
+      "WebFetch(domain:saramagdits.ddev.site)"
     ]
   }
 }

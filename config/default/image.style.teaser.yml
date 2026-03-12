@@ -3,13 +3,13 @@ langcode: en
 status: true
 dependencies: {  }
 name: teaser
-label: 'Teaser (400×400)'
+label: 'Teaser (800×800)'
 effects:
   f7e8d9c0-b1a2-3456-7890-abcdef123456:
     uuid: f7e8d9c0-b1a2-3456-7890-abcdef123456
-    id: image_scale
+    id: image_scale_and_crop
     weight: 0
     data:
-      width: 400
-      height: 400
-      upscale: false
+      width: 800
+      height: 800
+      anchor: center-center
