@@ -1,0 +1,11 @@
+name: Recipe Scanner
+type: module
+description: 'Upload a photo of a recipe and use GPT-4o vision to extract and create a Recipe node.'
+core_version_requirement: ^10 || ^11
+package: Recipe
+dependencies:
+  - drupal:node
+  - drupal:file
+  - drupal:image
+  - recipe:recipe
+  - recipe:ingredient

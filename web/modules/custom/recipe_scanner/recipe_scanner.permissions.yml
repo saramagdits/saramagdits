@@ -1,0 +1,3 @@
+scan recipe photos:
+  title: 'Scan recipe photos'
+  description: 'Upload recipe photos and create recipe nodes from scanned data.'

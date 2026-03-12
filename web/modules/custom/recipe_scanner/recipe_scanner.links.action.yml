@@ -1,0 +1,5 @@
+recipe_scanner.scan:
+  route_name: recipe_scanner.scan
+  title: 'Scan Recipe Photo'
+  appears_on:
+    - system.admin_content

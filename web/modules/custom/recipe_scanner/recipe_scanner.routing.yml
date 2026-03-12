@@ -1,0 +1,15 @@
+recipe_scanner.scan:
+  path: '/admin/content/recipe-scanner'
+  defaults:
+    _form: '\Drupal\recipe_scanner\Form\RecipeScanForm'
+    _title: 'Scan Recipe Photo'
+  requirements:
+    _permission: 'scan recipe photos'
+
+recipe_scanner.settings:
+  path: '/admin/config/content/recipe-scanner'
+  defaults:
+    _form: '\Drupal\recipe_scanner\Form\RecipeScannerSettingsForm'
+    _title: 'Recipe Scanner Settings'
+  requirements:
+    _permission: 'administer site configuration'

@@ -1,0 +1,6 @@
+services:
+  recipe_scanner.scanner:
+    class: Drupal\recipe_scanner\RecipeScannerService
+    arguments:
+      - '@http_client'
+      - '@config.factory'

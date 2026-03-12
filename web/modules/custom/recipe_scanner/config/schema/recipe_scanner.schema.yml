@@ -1,0 +1,7 @@
+recipe_scanner.settings:
+  type: config_object
+  label: 'Recipe Scanner settings'
+  mapping:
+    openai_model:
+      type: string
+      label: 'OpenAI Model'
