@@ -31,6 +31,8 @@ AddType image/webp .webp
 # changed at runtime.
 <IfModule mod_php.c>
   php_value assert.active                   0
+  php_value upload_max_filesize             6M
+  php_value post_max_size                   24M
 </IfModule>
 
 # Requires mod_expires to be enabled.
