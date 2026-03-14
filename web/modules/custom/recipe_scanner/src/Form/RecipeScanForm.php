@@ -107,8 +107,8 @@ class RecipeScanForm extends FormBase {
       '#description' => $this->t('Upload a photo of a handwritten or printed recipe. Supported formats: JPG, PNG, WebP, HEIC. Max 4 MB.'),
       '#upload_location' => 'public://recipe-scanner-uploads',
       '#upload_validators' => [
-        'file_validate_extensions' => ['jpg jpeg png webp heic heif'],
-        'file_validate_size' => [4 * 1024 * 1024],
+        'FileExtension' => ['extensions' => 'jpg jpeg png webp heic heif'],
+        'FileSizeLimit' => ['fileLimit' => 4 * 1024 * 1024],
       ],
       '#required' => TRUE,
     ];
@@ -207,18 +207,78 @@ class RecipeScanForm extends FormBase {
       '#default_value' => $data['source'] ?? '',
     ];
 
+    // Tags — entity autocomplete with auto-create, tags style.
+    $tag_default = [];
+    if (!empty($data['tags'])) {
+      foreach ($data['tags'] as $tag_name) {
+        $tag_name = trim($tag_name);
+        if (empty($tag_name)) {
+          continue;
+        }
+        $existing = $this->entityTypeManager->getStorage('taxonomy_term')
+          ->loadByProperties(['name' => $tag_name, 'vid' => 'recipe_tags']);
+        if ($existing) {
+          $tag_default[] = reset($existing);
+        }
+        else {
+          // Create a temporary unsaved entity for the autocomplete default.
+          $tag_default[] = $this->entityTypeManager->getStorage('taxonomy_term')
+            ->create(['name' => $tag_name, 'vid' => 'recipe_tags']);
+        }
+      }
+    }
+
     $form['tags'] = [
-      '#type' => 'textfield',
+      '#type' => 'entity_autocomplete',
       '#title' => $this->t('Tags'),
-      '#default_value' => !empty($data['tags']) ? implode(', ', $data['tags']) : '',
-      '#description' => $this->t('Comma-separated list of tags.'),
+      '#target_type' => 'taxonomy_term',
+      '#selection_handler' => 'default:taxonomy_term',
+      '#selection_settings' => [
+        'target_bundles' => ['recipe_tags' => 'recipe_tags'],
+        'auto_create' => TRUE,
+        'auto_create_bundle' => 'recipe_tags',
+      ],
+      '#autocreate' => [
+        'bundle' => 'recipe_tags',
+      ],
+      '#tags' => TRUE,
+      '#default_value' => $tag_default,
     ];
 
+    // Category — select dropdown from existing terms.
+    $category_terms = $this->entityTypeManager->getStorage('taxonomy_term')
+      ->loadByProperties(['vid' => 'recipe_category']);
+    $category_options = ['' => $this->t('- Select -')];
+    foreach ($category_terms as $term) {
+      $category_options[$term->id()] = $term->label();
+    }
+    asort($category_options);
+
+    // Try to match the scanned category to an existing term.
+    $category_default = '';
+    if (!empty($data['category'])) {
+      foreach ($category_terms as $term) {
+        if (strcasecmp($term->label(), $data['category']) === 0) {
+          $category_default = $term->id();
+          break;
+        }
+      }
+    }
+
     $form['category'] = [
-      '#type' => 'textfield',
+      '#type' => 'select',
       '#title' => $this->t('Category'),
-      '#default_value' => $data['category'] ?? '',
+      '#options' => $category_options,
+      '#default_value' => $category_default,
       '#required' => TRUE,
+    ];
+
+    // If the scanned category didn't match, show a textfield to create one.
+    $form['category_new'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Or create new category'),
+      '#default_value' => (!empty($data['category']) && empty($category_default)) ? $data['category'] : '',
+      '#description' => $this->t('If the category above doesn\'t have the right option, type a new one here.'),
     ];
 
     // Build ingredients table.
@@ -463,14 +523,27 @@ class RecipeScanForm extends FormBase {
       }
     }
 
-    // Look up or create taxonomy terms.
-    $category_tid = $this->findOrCreateTerm($values['category'], 'recipe_category');
+    // Category — prefer the new category textfield if filled in.
+    $category_new = trim($values['category_new'] ?? '');
+    if (!empty($category_new)) {
+      $category_tid = $this->findOrCreateTerm($category_new, 'recipe_category');
+    }
+    else {
+      $category_tid = $values['category'];
+    }
+
+    // Tags — entity_autocomplete with #tags returns an array of entries.
+    // Existing terms have integer target_id; auto-created terms have an
+    // unsaved entity object in 'entity' that we need to save first.
     $tag_tids = [];
     if (!empty($values['tags'])) {
-      $tag_names = array_map('trim', explode(',', $values['tags']));
-      foreach ($tag_names as $tag_name) {
-        if (!empty($tag_name)) {
-          $tag_tids[] = ['target_id' => $this->findOrCreateTerm($tag_name, 'recipe_tags')];
+      foreach ($values['tags'] as $tag_entry) {
+        if (!empty($tag_entry['entity']) && $tag_entry['entity'] instanceof \Drupal\Core\Entity\EntityInterface) {
+          $tag_entry['entity']->save();
+          $tag_tids[] = ['target_id' => $tag_entry['entity']->id()];
+        }
+        elseif (!empty($tag_entry['target_id'])) {
+          $tag_tids[] = ['target_id' => $tag_entry['target_id']];
         }
       }
     }
