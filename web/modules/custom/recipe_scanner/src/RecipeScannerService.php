@@ -66,21 +66,41 @@ class RecipeScannerService {
    *   If the API call fails or returns invalid data.
    */
   public function scanImage(string $file_path): array {
+    return $this->scanImages([$file_path]);
+  }
+
+  /**
+   * Scans multiple recipe images and returns structured data.
+   *
+   * Images are sent in the provided order so multi-page recipes are read
+   * sequentially and combined into a single result.
+   *
+   * @param array $file_paths
+   *   An ordered array of absolute paths to image files.
+   *
+   * @return array
+   *   The parsed recipe data.
+   *
+   * @throws \RuntimeException
+   *   If the API call fails or returns invalid data.
+   */
+  public function scanImages(array $file_paths): array {
     $api_key = $this->getApiKey();
     if (empty($api_key)) {
       throw new \RuntimeException('OpenAI API key is not configured. Set the OPENAI_API_KEY environment variable on your server.');
     }
 
-    $image_data = file_get_contents($file_path);
-    if ($image_data === FALSE) {
-      throw new \RuntimeException('Could not read image file: ' . $file_path);
+    if (empty($file_paths)) {
+      throw new \RuntimeException('No image files provided.');
     }
 
-    $mime_type = mime_content_type($file_path);
-    $base64 = base64_encode($image_data);
+    $image_count = count($file_paths);
+    $multi_page_note = $image_count > 1
+      ? "\n- The images are pages of the SAME recipe in order. Combine all information across pages into one unified recipe. Do not duplicate ingredients or instructions that appear on multiple pages."
+      : '';
 
-    $prompt = <<<'PROMPT'
-You are a recipe extraction assistant. Analyze this image of a recipe and extract all information into the following JSON structure. Be thorough and accurate.
+    $prompt = <<<PROMPT
+You are a recipe extraction assistant. Analyze {$this->imageCountLabel($image_count)} of a recipe and extract all information into the following JSON structure. Be thorough and accurate.
 
 Return ONLY valid JSON with this exact structure:
 {
@@ -107,8 +127,34 @@ Rules:
 - prep_time and cook_time are in minutes
 - For ingredients with no specific unit (like "3 eggs"), use "" for unit
 - Include ALL ingredients, even if they appear in sub-sections
-- Preserve the original meaning and quantities exactly as written
+- Preserve the original meaning and quantities exactly as written{$multi_page_note}
 PROMPT;
+
+    // Build the content array: text prompt followed by images in order.
+    $content = [
+      [
+        'type' => 'text',
+        'text' => $prompt,
+      ],
+    ];
+
+    foreach ($file_paths as $file_path) {
+      $image_data = file_get_contents($file_path);
+      if ($image_data === FALSE) {
+        throw new \RuntimeException('Could not read image file: ' . $file_path);
+      }
+
+      $mime_type = mime_content_type($file_path);
+      $base64 = base64_encode($image_data);
+
+      $content[] = [
+        'type' => 'image_url',
+        'image_url' => [
+          'url' => 'data:' . $mime_type . ';base64,' . $base64,
+          'detail' => 'high',
+        ],
+      ];
+    }
 
     try {
       $response = $this->httpClient->request('POST', 'https://api.openai.com/v1/chat/completions', [
@@ -121,25 +167,13 @@ PROMPT;
           'messages' => [
             [
               'role' => 'user',
-              'content' => [
-                [
-                  'type' => 'text',
-                  'text' => $prompt,
-                ],
-                [
-                  'type' => 'image_url',
-                  'image_url' => [
-                    'url' => 'data:' . $mime_type . ';base64,' . $base64,
-                    'detail' => 'high',
-                  ],
-                ],
-              ],
+              'content' => $content,
             ],
           ],
           'response_format' => ['type' => 'json_object'],
           'max_tokens' => 4096,
         ],
-        'timeout' => 60,
+        'timeout' => 120,
       ]);
     }
     catch (GuzzleException $e) {
@@ -167,6 +201,16 @@ PROMPT;
     }
 
     return $data;
+  }
+
+  /**
+   * Returns a human-readable label for the number of images.
+   */
+  protected function imageCountLabel(int $count): string {
+    if ($count === 1) {
+      return 'this image';
+    }
+    return "these {$count} images (pages)";
   }
 
   /**

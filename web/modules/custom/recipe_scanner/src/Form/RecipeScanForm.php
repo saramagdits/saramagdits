@@ -103,13 +103,14 @@ class RecipeScanForm extends FormBase {
   protected function buildUploadStep(array &$form, FormStateInterface $form_state) {
     $form['photo'] = [
       '#type' => 'managed_file',
-      '#title' => $this->t('Recipe Photo'),
-      '#description' => $this->t('Upload a photo of a handwritten or printed recipe. Supported formats: JPG, PNG, WebP, HEIC. Max 4 MB.'),
+      '#title' => $this->t('Recipe Photos'),
+      '#description' => $this->t('Upload one or more photos of a recipe. For multi-page recipes, upload each page as a separate image — they will be processed in upload order. Supported formats: JPG, PNG, WebP, HEIC. Max 4 MB per file.'),
       '#upload_location' => 'public://recipe-scanner-uploads',
       '#upload_validators' => [
         'FileExtension' => ['extensions' => 'jpg jpeg png webp heic heif'],
         'FileSizeLimit' => ['fileLimit' => 4 * 1024 * 1024],
       ],
+      '#multiple' => TRUE,
       '#required' => TRUE,
     ];
 
@@ -130,17 +131,23 @@ class RecipeScanForm extends FormBase {
   protected function buildReviewStep(array &$form, FormStateInterface $form_state) {
     $data = $form_state->get('scanned_data');
 
-    // Show uploaded image preview.
-    $fid = $form_state->get('uploaded_fid');
-    if ($fid) {
-      $file = $this->entityTypeManager->getStorage('file')->load($fid);
-      if ($file) {
+    // Show uploaded image previews.
+    $fids = $form_state->get('uploaded_fids') ?: [];
+    if ($fids) {
+      $files = $this->entityTypeManager->getStorage('file')->loadMultiple($fids);
+      if ($files) {
         $form['preview'] = [
-          '#theme' => 'image',
-          '#uri' => $file->getFileUri(),
-          '#alt' => $this->t('Uploaded recipe photo'),
-          '#attributes' => ['style' => 'max-width: 400px; height: auto;'],
+          '#type' => 'container',
+          '#attributes' => ['style' => 'display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 1em;'],
         ];
+        foreach (array_values($files) as $i => $file) {
+          $form['preview'][$i] = [
+            '#theme' => 'image',
+            '#uri' => $file->getFileUri(),
+            '#alt' => $this->t('Recipe photo page @num', ['@num' => $i + 1]),
+            '#attributes' => ['style' => 'max-width: 300px; height: auto;'],
+          ];
+        }
       }
     }
 
@@ -433,47 +440,55 @@ class RecipeScanForm extends FormBase {
   public function scanSubmit(array &$form, FormStateInterface $form_state) {
     $fids = $form_state->getValue('photo');
     if (empty($fids)) {
-      $this->messenger()->addError($this->t('Please upload a photo.'));
+      $this->messenger()->addError($this->t('Please upload at least one photo.'));
       return;
     }
 
-    $fid = reset($fids);
-    $file = $this->entityTypeManager->getStorage('file')->load($fid);
-    if (!$file) {
-      $this->messenger()->addError($this->t('Could not load the uploaded file.'));
-      return;
-    }
+    // Ensure $fids is an array (single upload returns a flat array with one element).
+    $fids = array_values(array_filter((array) $fids));
 
+    $file_storage = $this->entityTypeManager->getStorage('file');
     $file_system = \Drupal::service('file_system');
-    $file_path = $file_system->realpath($file->getFileUri());
+    $file_paths = [];
+    $saved_fids = [];
 
-    // Convert HEIC/HEIF to JPEG so both the API and the stored file use JPEG.
+    foreach ($fids as $fid) {
+      $file = $file_storage->load($fid);
+      if (!$file) {
+        $this->messenger()->addError($this->t('Could not load an uploaded file.'));
+        return;
+      }
+
+      $file_path = $file_system->realpath($file->getFileUri());
+
+      // Convert HEIC/HEIF to JPEG so both the API and the stored file use JPEG.
+      try {
+        $converted_path = $this->scanner->convertHeicToJpeg($file_path);
+      }
+      catch (\RuntimeException $e) {
+        $this->messenger()->addError($e->getMessage());
+        return;
+      }
+
+      if ($converted_path) {
+        $new_uri = preg_replace('/\.heic$|\.heif$/i', '.jpg', $file->getFileUri());
+        $file_system->move($converted_path, $new_uri);
+        $file_system->delete($file_path);
+        $file->setFileUri($new_uri);
+        $file->setMimeType('image/jpeg');
+        $file->setFilename(basename($new_uri));
+        $file_path = $file_system->realpath($new_uri);
+      }
+
+      $file->setPermanent();
+      $file->save();
+
+      $file_paths[] = $file_path;
+      $saved_fids[] = (int) $file->id();
+    }
+
     try {
-      $converted_path = $this->scanner->convertHeicToJpeg($file_path);
-    }
-    catch (\RuntimeException $e) {
-      $this->messenger()->addError($e->getMessage());
-      return;
-    }
-
-    if ($converted_path) {
-      // Replace the managed file with the converted JPEG.
-      $new_uri = preg_replace('/\.heic$|\.heif$/i', '.jpg', $file->getFileUri());
-      $file_system->move($converted_path, $new_uri);
-      // Delete the original HEIC.
-      $file_system->delete($file_path);
-      $file->setFileUri($new_uri);
-      $file->setMimeType('image/jpeg');
-      $file->setFilename(basename($new_uri));
-      $file_path = $file_system->realpath($new_uri);
-    }
-
-    // Make the file permanent so it persists.
-    $file->setPermanent();
-    $file->save();
-
-    try {
-      $data = $this->scanner->scanImage($file_path);
+      $data = $this->scanner->scanImages($file_paths);
     }
     catch (\RuntimeException $e) {
       $this->messenger()->addError($e->getMessage());
@@ -481,7 +496,7 @@ class RecipeScanForm extends FormBase {
     }
 
     $form_state->set('scanned_data', $data);
-    $form_state->set('uploaded_fid', $file->id());
+    $form_state->set('uploaded_fids', $saved_fids);
     $form_state->set('step', 2);
     $form_state->set('ingredients', NULL);
     $form_state->setRebuild(TRUE);
@@ -579,10 +594,14 @@ class RecipeScanForm extends FormBase {
       'status' => 1,
     ]);
 
-    // Attach the source photo.
-    $fid = $form_state->get('uploaded_fid');
-    if ($fid) {
-      $node->set('field_recipe_source_photo', ['target_id' => $fid]);
+    // Attach the source photos (preserving upload order).
+    $fids = $form_state->get('uploaded_fids') ?: [];
+    if ($fids) {
+      $photo_values = [];
+      foreach ($fids as $fid) {
+        $photo_values[] = ['target_id' => $fid];
+      }
+      $node->set('field_recipe_source_photo', $photo_values);
     }
 
     $node->save();
