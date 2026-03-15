@@ -1,0 +1,8 @@
+name: Media Image Rotate
+type: module
+description: Adds rotation controls to the media image edit form.
+core_version_requirement: ^10 || ^11
+package: Custom
+dependencies:
+  - drupal:media
+  - drupal:image

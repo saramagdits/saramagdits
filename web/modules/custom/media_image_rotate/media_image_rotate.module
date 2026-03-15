@@ -1,0 +1,114 @@
+<?php
+
+/**
+ * @file
+ * Adds image rotation controls to the media image edit form.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\file\Entity\File;
+
+/**
+ * Implements hook_form_alter().
+ */
+function media_image_rotate_form_alter(array &$form, FormStateInterface $form_state, string $form_id): void {
+  // Target the media image edit form.
+  if ($form_id !== 'media_image_edit_form') {
+    return;
+  }
+
+  $form['rotate_actions'] = [
+    '#type' => 'container',
+    '#attributes' => ['class' => ['media-image-rotate']],
+    '#weight' => -10,
+  ];
+
+  $form['rotate_actions']['rotate_label'] = [
+    '#markup' => '<label>' . t('Rotate image') . '</label>',
+  ];
+
+  $form['rotate_actions']['rotate_ccw'] = [
+    '#type' => 'submit',
+    '#value' => t('↺ 90° Left'),
+    '#submit' => ['media_image_rotate_submit'],
+    '#limit_validation_errors' => [],
+    '#attributes' => ['class' => ['button', 'button--small']],
+    '#rotate_degrees' => 90,
+  ];
+
+  $form['rotate_actions']['rotate_cw'] = [
+    '#type' => 'submit',
+    '#value' => t('↻ 90° Right'),
+    '#submit' => ['media_image_rotate_submit'],
+    '#limit_validation_errors' => [],
+    '#attributes' => ['class' => ['button', 'button--small']],
+    '#rotate_degrees' => -90,
+  ];
+}
+
+/**
+ * Submit handler for image rotation.
+ */
+function media_image_rotate_submit(array &$form, FormStateInterface $form_state): void {
+  $triggering_element = $form_state->getTriggeringElement();
+  $degrees = $triggering_element['#rotate_degrees'];
+
+  /** @var \Drupal\media\MediaInterface $media */
+  $media = $form_state->getFormObject()->getEntity();
+  $image_field = $media->get('field_media_image');
+
+  if ($image_field->isEmpty()) {
+    \Drupal::messenger()->addError(t('No image found to rotate.'));
+    return;
+  }
+
+  $file_id = $image_field->target_id;
+  $file = File::load($file_id);
+
+  if (!$file) {
+    \Drupal::messenger()->addError(t('Could not load the image file.'));
+    return;
+  }
+
+  $uri = $file->getFileUri();
+  $file_system = \Drupal::service('file_system');
+  $real_path = $file_system->realpath($uri);
+
+  if (!$real_path || !file_exists($real_path)) {
+    \Drupal::messenger()->addError(t('Image file not found on disk.'));
+    return;
+  }
+
+  /** @var \Drupal\Core\Image\ImageFactory $image_factory */
+  $image_factory = \Drupal::service('image.factory');
+  $image = $image_factory->get($real_path);
+
+  if (!$image->isValid()) {
+    \Drupal::messenger()->addError(t('Could not process the image. The file may be corrupt or in an unsupported format.'));
+    return;
+  }
+
+  if (!$image->rotate($degrees)) {
+    \Drupal::messenger()->addError(t('Image rotation failed.'));
+    return;
+  }
+
+  if (!$image->save($real_path)) {
+    \Drupal::messenger()->addError(t('Could not save the rotated image.'));
+    return;
+  }
+
+  // Update file size in the database.
+  $file->setSize(filesize($real_path));
+  $file->save();
+
+  // Update width/height on the image field.
+  $image_field->width = $image->getWidth();
+  $image_field->height = $image->getHeight();
+  $media->save();
+
+  // Flush all image style derivatives for this file.
+  image_path_flush($uri);
+
+  \Drupal::messenger()->addStatus(t('Image rotated successfully.'));
+}
