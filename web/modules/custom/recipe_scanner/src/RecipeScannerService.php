@@ -179,6 +179,11 @@ class RecipeScannerService {
       }
     }
 
+    // Format instructions for readability — ensure line breaks between steps.
+    if (!empty($data['instructions']) && is_string($data['instructions'])) {
+      $data['instructions'] = $this->formatInstructions($data['instructions']);
+    }
+
     return $data;
   }
 
@@ -226,6 +231,34 @@ class RecipeScannerService {
     }
 
     return is_numeric($value) ? (float) $value : NULL;
+  }
+
+  /**
+   * Formats recipe instructions for readability.
+   *
+   * Ensures numbered steps and section headings are separated by line breaks,
+   * even if the API returned them as a single run-on block.
+   *
+   * @param string $text
+   *   The raw instructions text.
+   *
+   * @return string
+   *   The formatted instructions with proper line breaks.
+   */
+  protected function formatInstructions(string $text): string {
+    // If the text already has line breaks, just clean up and return.
+    if (preg_match('/\n/', $text)) {
+      return trim($text);
+    }
+
+    // Insert a newline before numbered steps (e.g., "1.", "2)", "Step 3:").
+    $text = preg_replace('/\s*(?=\d+[\.\)]\s)/', "\n", $text);
+    $text = preg_replace('/\s*(?=Step\s+\d+)/i', "\n", $text);
+
+    // Insert a newline before common section headings.
+    $text = preg_replace('/\s*(?=(?:For the |For |Note:|Notes:|Tip:|Tips:|Topping:|Filling:|Frosting:|Glaze:|Sauce:|Dressing:|Garnish:|Assembly:|To serve:))/i', "\n\n", $text);
+
+    return trim($text);
   }
 
   /**

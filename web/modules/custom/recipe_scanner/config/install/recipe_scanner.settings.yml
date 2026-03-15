@@ -9,7 +9,7 @@ scan_prompt: |
     "ingredients": [
       {"quantity": 2.25, "unit": "cups", "name": "flour", "note": "sifted"}
     ],
-    "instructions": "Full step-by-step instructions as a single text block. Preserve numbered steps if present.",
+    "instructions": "Full step-by-step instructions. Use newlines to separate numbered steps, headings, and paragraphs for readability. Preserve the original structure (numbered steps, section headings like 'For the filling:', etc.).",
     "prep_time": 15,
     "cook_time": 30,
     "yield_amount": 12,
