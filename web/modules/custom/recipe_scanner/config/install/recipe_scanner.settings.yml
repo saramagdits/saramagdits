@@ -17,7 +17,8 @@ scan_prompt: |
     "notes": "Any additional notes, tips, or variations mentioned",
     "source": "Source attribution if mentioned",
     "tags": ["tag1", "tag2"],
-    "category": "Category like Dessert, Main Course, Appetizer, etc."
+    "category": "Category like Dessert, Main Course, Appetizer, etc.",
+    "net_carbs_per_serving": 12
   }
 
   Rules:
@@ -28,4 +29,23 @@ scan_prompt: |
   - For ingredients with no specific unit (like "3 eggs"), use "" for unit
   - Include ALL ingredients, even if they appear in sub-sections
   - Preserve the original meaning and quantities exactly as written
+
+  Yield (yield_amount and yield_unit):
+  - If the recipe explicitly states a yield (e.g. "Makes 24 cookies", "Serves 4"), use that exactly.
+  - If no explicit yield is given, infer it intelligently from context:
+    - Look at pan/dish size (e.g. a 9x13 casserole typically yields 8-12 servings, a 9-inch pie yields 8 slices).
+    - Look at total volume of ingredients (e.g. a recipe with 3 cups flour making cookies likely yields 24-36 cookies).
+    - Look at portioning clues in the instructions (e.g. "divide among 4 bowls", "form into 12 patties").
+    - For baked goods with a known form factor (muffins, cupcakes, rolls), use the standard pan count (e.g. 12 muffins).
+  - yield_unit should be the most natural unit: "servings" for meals/sides, "cookies"/"muffins"/"slices" etc. for baked goods, "cups" for sauces/dips.
+  - Only use null if you truly cannot make a reasonable estimate.
+
+  Net carbs (net_carbs_per_serving):
+  - Calculate net carbs per serving ONLY when yield_amount and yield_unit have been determined (either explicit or inferred).
+  - To calculate: use your knowledge of the nutritional content of each ingredient to estimate total carbohydrates and total dietary fiber for the entire recipe, then compute (total_carbs - total_fiber) / yield_amount, rounded to the nearest whole number.
+  - Use standard USDA nutritional data for common ingredients (e.g. 1 cup all-purpose flour ≈ 95g carbs, 3.4g fiber; 1 large egg ≈ 0.4g carbs, 0g fiber; 1 cup granulated sugar ≈ 200g carbs, 0g fiber).
+  - For ingredients where carb content is negligible (salt, spices, vanilla extract, baking powder), you may treat them as 0g carbs.
+  - If an ingredient is too vague or unusual to estimate nutritional content for, use null for net_carbs_per_serving rather than guessing wildly.
+  - If yield_amount is null, net_carbs_per_serving must also be null.
+
   - @multi_page_note
