@@ -5,3 +5,6 @@ recipe_scanner.settings:
     openai_model:
       type: string
       label: 'OpenAI Model'
+    scan_prompt:
+      type: string
+      label: 'Scan Prompt'

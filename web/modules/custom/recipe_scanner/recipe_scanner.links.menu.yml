@@ -1,0 +1,5 @@
+recipe_scanner.settings:
+  title: 'Recipe Scanner'
+  description: 'Configure the AI model and prompt used for scanning recipe photos.'
+  route_name: recipe_scanner.settings
+  parent: system.admin_config_services

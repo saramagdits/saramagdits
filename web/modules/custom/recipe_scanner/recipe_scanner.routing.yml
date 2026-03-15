@@ -7,7 +7,7 @@ recipe_scanner.scan:
     _permission: 'scan recipe photos'
 
 recipe_scanner.settings:
-  path: '/admin/config/content/recipe-scanner'
+  path: '/admin/config/services/recipe-scanner'
   defaults:
     _form: '\Drupal\recipe_scanner\Form\RecipeScannerSettingsForm'
     _title: 'Recipe Scanner Settings'

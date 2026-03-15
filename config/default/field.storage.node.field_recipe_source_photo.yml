@@ -1,4 +1,4 @@
-uuid: f798f660-0b75-4135-9307-2eef7544c26b
+uuid: ba195eef-94d9-4e88-97ff-4848b3626df6
 langcode: en
 status: true
 dependencies:
@@ -7,7 +7,7 @@ dependencies:
     - image
     - node
 _core:
-  default_config_hash: Wvvc4mgWYXrfyjBjJvo9-f_NKpfa6qr_RI3mI6zQ2b8
+  default_config_hash: qi42GRQ4cCsZrluUwNNVdfVnXvcFJ3ALrri6NHQC6RM
 id: node.field_recipe_source_photo
 field_name: field_recipe_source_photo
 entity_type: node
@@ -25,7 +25,7 @@ settings:
   display_field: false
 module: image
 locked: false
-cardinality: 1
+cardinality: -1
 translatable: true
 indexes: {  }
 persist_with_no_fields: false

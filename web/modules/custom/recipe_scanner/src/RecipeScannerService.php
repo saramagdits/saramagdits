@@ -96,39 +96,18 @@ class RecipeScannerService {
 
     $image_count = count($file_paths);
     $multi_page_note = $image_count > 1
-      ? "\n- The images are pages of the SAME recipe in order. Combine all information across pages into one unified recipe. Do not duplicate ingredients or instructions that appear on multiple pages."
+      ? 'The images are pages of the SAME recipe in order. Combine all information across pages into one unified recipe. Do not duplicate ingredients or instructions that appear on multiple pages.'
       : '';
 
-    $prompt = <<<PROMPT
-You are a recipe extraction assistant. Analyze {$this->imageCountLabel($image_count)} of a recipe and extract all information into the following JSON structure. Be thorough and accurate.
-
-Return ONLY valid JSON with this exact structure:
-{
-  "title": "Recipe title",
-  "description": "Brief description of the dish",
-  "ingredients": [
-    {"quantity": 2.25, "unit": "cups", "name": "flour", "note": "sifted"}
-  ],
-  "instructions": "Full step-by-step instructions as a single text block. Preserve numbered steps if present.",
-  "prep_time": 15,
-  "cook_time": 30,
-  "yield_amount": 12,
-  "yield_unit": "servings",
-  "notes": "Any additional notes, tips, or variations mentioned",
-  "source": "Source attribution if mentioned",
-  "tags": ["tag1", "tag2"],
-  "category": "Category like Dessert, Main Course, Appetizer, etc."
-}
-
-Rules:
-- quantity must be a number (convert fractions: "1/2" = 0.5, "1 1/2" = 1.5)
-- unit should be the common unit name (cups, tablespoons, teaspoons, ounces, pounds, etc.)
-- If a field is not present in the recipe, use null for strings/numbers or empty array for arrays
-- prep_time and cook_time are in minutes
-- For ingredients with no specific unit (like "3 eggs"), use "" for unit
-- Include ALL ingredients, even if they appear in sub-sections
-- Preserve the original meaning and quantities exactly as written{$multi_page_note}
-PROMPT;
+    $prompt_template = $this->configFactory->get('recipe_scanner.settings')->get('scan_prompt');
+    $prompt = str_replace(
+      ['@image_count', '@multi_page_note'],
+      [$this->imageCountLabel($image_count), $multi_page_note],
+      $prompt_template,
+    );
+    // Clean up the line if multi_page_note was empty.
+    $prompt = preg_replace('/^- \s*$/m', '', $prompt);
+    $prompt = rtrim($prompt);
 
     // Build the content array: text prompt followed by images in order.
     $content = [
