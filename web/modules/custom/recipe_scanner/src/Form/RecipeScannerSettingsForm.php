@@ -70,7 +70,8 @@ Return ONLY valid JSON with this exact structure:
   "notes": "Any additional notes, tips, or variations mentioned",
   "source": "Source attribution if mentioned",
   "tags": ["tag1", "tag2"],
-  "category": "Category like Dessert, Main Course, Appetizer, etc."
+  "category": "Category like Dessert, Main Course, Appetizer, etc.",
+  "net_carbs_per_serving": 12
 }
 
 Rules:
@@ -81,6 +82,7 @@ Rules:
 - For ingredients with no specific unit (like "3 eggs"), use "" for unit
 - Include ALL ingredients, even if they appear in sub-sections
 - Preserve the original meaning and quantities exactly as written
+- net_carbs_per_serving is the net carbs per serving (total carbohydrates minus fiber). Calculate this ONLY if the recipe provides enough nutritional information (total carbs and fiber per serving, or enough detail to estimate). If the information is not available, use null.
 - @multi_page_note
 PROMPT;
 

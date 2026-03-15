@@ -201,6 +201,14 @@ class RecipeScanForm extends FormBase {
       '#size' => 20,
     ];
 
+    $form['net_carbs'] = [
+      '#type' => 'number',
+      '#title' => $this->t('Net carbs per serving'),
+      '#default_value' => $data['net_carbs_per_serving'] ?? NULL,
+      '#min' => 0,
+      '#description' => $this->t('Total carbohydrates minus fiber, per serving.'),
+    ];
+
     $form['notes'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Notes'),
@@ -589,6 +597,7 @@ class RecipeScanForm extends FormBase {
         'format' => 'plain_text',
       ],
       'recipe_ingredient' => $ingredient_values,
+      'field_net_carbs' => $values['net_carbs'] ?? NULL,
       'field_category' => ['target_id' => $category_tid],
       'field_recipe_tags' => $tag_tids,
       'status' => 1,
