@@ -33,7 +33,7 @@ function media_image_rotate_form_alter(array &$form, FormStateInterface $form_st
     '#submit' => ['media_image_rotate_submit'],
     '#limit_validation_errors' => [],
     '#attributes' => ['class' => ['button', 'button--small']],
-    '#rotate_degrees' => 90,
+    '#rotate_degrees' => -90,
   ];
 
   $form['rotate_actions']['rotate_cw'] = [
@@ -42,7 +42,7 @@ function media_image_rotate_form_alter(array &$form, FormStateInterface $form_st
     '#submit' => ['media_image_rotate_submit'],
     '#limit_validation_errors' => [],
     '#attributes' => ['class' => ['button', 'button--small']],
-    '#rotate_degrees' => -90,
+    '#rotate_degrees' => 90,
   ];
 }
 
