@@ -7,5 +7,6 @@ dependencies:
   - drupal:node
   - drupal:file
   - drupal:image
+  - drupal:views
   - recipe:recipe
   - recipe:ingredient

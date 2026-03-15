@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.recipe.field_recipe_image
     - field.field.node.recipe.field_recipe_source_photo
     - field.field.node.recipe.field_recipe_tags
+    - field.field.node.recipe.field_recipe_total_time
     - field.field.node.recipe.recipe_cook_time
     - field.field.node.recipe.recipe_description
     - field.field.node.recipe.recipe_ingredient
@@ -121,11 +122,6 @@ content:
     third_party_settings: {  }
     weight: 11
     region: content
-  recipe_total_time:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 6
-    region: content
   recipe_yield:
     settings: {  }
     third_party_settings: {  }
@@ -133,5 +129,7 @@ content:
     region: content
 hidden:
   field_recipe_source_photo: true
+  field_recipe_total_time: true
+  recipe_total_time: true
   recipe_yield_amount: true
   recipe_yield_unit: true

@@ -1,0 +1,53 @@
+<?php
+
+/**
+ * @file
+ * Hook implementations for the Recipe Scanner module.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+
+/**
+ * Implements hook_entity_presave().
+ */
+function recipe_scanner_entity_presave(EntityInterface $entity) {
+  if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'recipe') {
+    $prep = (int) ($entity->recipe_prep_time->value ?? 0);
+    $cook = (int) ($entity->recipe_cook_time->value ?? 0);
+    $total = $prep + $cook;
+    $entity->set('field_recipe_total_time', $total > 0 ? $total : NULL);
+  }
+}
+
+/**
+ * Implements hook_views_query_alter().
+ */
+function recipe_scanner_views_query_alter(\Drupal\views\ViewExecutable $view, \Drupal\views\Plugin\views\query\Sql $query) {
+  if ($view->id() !== 'recipes') {
+    return;
+  }
+  $sort_by = $view->getExposedInput()['sort_by'] ?? '';
+  if ($sort_by === 'field_net_carbs_value') {
+    $query->addWhereExpression(0, 'node__field_net_carbs.field_net_carbs_value IS NOT NULL');
+  }
+  if ($sort_by === 'field_recipe_total_time_value') {
+    $query->addWhereExpression(0, 'node__field_recipe_total_time.field_recipe_total_time_value IS NOT NULL');
+  }
+}
+
+/**
+ * Implements hook_views_data_alter().
+ */
+function recipe_scanner_views_data_alter(array &$data) {
+  $data['node__recipe_ingredient']['ingredient_autocomplete'] = [
+    'group' => t('Content'),
+    'title' => t('Ingredient (autocomplete)'),
+    'help' => t('Filter recipes by ingredient with autocomplete.'),
+    'filter' => [
+      'field' => 'recipe_ingredient_target_id',
+      'table' => 'node__recipe_ingredient',
+      'id' => 'ingredient_autocomplete',
+      'allow empty' => TRUE,
+    ],
+  ];
+}

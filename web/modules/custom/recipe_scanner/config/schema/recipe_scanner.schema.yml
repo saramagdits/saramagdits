@@ -8,3 +8,11 @@ recipe_scanner.settings:
     scan_prompt:
       type: string
       label: 'Scan Prompt'
+
+views.filter.ingredient_autocomplete:
+  type: views.filter.many_to_one
+  label: 'Ingredient autocomplete filter'
+  mapping:
+    error_message:
+      type: boolean
+      label: 'Display error message'

@@ -4,12 +4,15 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.storage.node.field_net_carbs
+    - field.storage.node.field_recipe_total_time
     - node.type.recipe
     - system.menu.main
     - taxonomy.vocabulary.recipe_category
     - taxonomy.vocabulary.recipe_tags
   module:
     - node
+    - recipe_scanner
     - taxonomy
     - user
 _core:
@@ -277,6 +280,21 @@ display:
         options: {  }
       empty: {  }
       sorts:
+        created:
+          id: created
+          table: node_field_data
+          field: created
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: created
+          plugin_id: date
+          order: DESC
+          expose:
+            label: Date
+            field_identifier: created
+          exposed: true
         title:
           id: title
           table: node_field_data
@@ -289,8 +307,35 @@ display:
           plugin_id: standard
           order: ASC
           expose:
-            label: ''
-          exposed: false
+            label: Title
+            field_identifier: title
+          exposed: true
+        field_recipe_total_time_value:
+          id: field_recipe_total_time_value
+          table: node__field_recipe_total_time
+          field: field_recipe_total_time_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: standard
+          order: ASC
+          expose:
+            label: 'Total Time'
+            field_identifier: field_recipe_total_time_value
+          exposed: true
+        field_net_carbs_value:
+          id: field_net_carbs_value
+          table: node__field_net_carbs
+          field: field_net_carbs_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: standard
+          order: ASC
+          expose:
+            label: 'Net Carbs'
+            field_identifier: field_net_carbs_value
+          exposed: true
       arguments: {  }
       filters:
         status:
@@ -439,6 +484,71 @@ display:
           hierarchy: false
           limit: true
           error_message: true
+        field_recipe_total_time_value:
+          id: field_recipe_total_time_value
+          table: node__field_recipe_total_time
+          field: field_recipe_total_time_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: numeric
+          operator: '<='
+          value:
+            min: ''
+            max: ''
+            value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_recipe_total_time_value_op
+            label: 'Total Time'
+            description: ''
+            use_operator: false
+            operator: field_recipe_total_time_value_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_recipe_total_time_value
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            placeholder: ''
+            min_placeholder: ''
+            max_placeholder: ''
+          is_grouped: true
+          group_info:
+            label: 'Total Time'
+            description: ''
+            identifier: total_time
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items:
+              1:
+                title: 'Under 30 min'
+                operator: '<='
+                value:
+                  min: ''
+                  max: ''
+                  value: '30'
+              2:
+                title: '30–60 min'
+                operator: between
+                value:
+                  min: '30'
+                  max: '60'
+                  value: ''
+              3:
+                title: 'Over 60 min'
+                operator: '>='
+                value:
+                  min: ''
+                  max: ''
+                  value: '60'
         field_recipe_tags_target_id:
           id: field_recipe_tags_target_id
           table: node__field_recipe_tags
@@ -453,7 +563,7 @@ display:
           exposed: true
           expose:
             operator_id: field_recipe_tags_target_id_op
-            label: Ingredients
+            label: Tags
             description: ''
             use_operator: false
             operator: field_recipe_tags_target_id_op
@@ -484,6 +594,46 @@ display:
           hierarchy: false
           limit: true
           error_message: true
+        ingredient_autocomplete:
+          id: ingredient_autocomplete
+          table: node__recipe_ingredient
+          field: ingredient_autocomplete
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: ingredient_autocomplete
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: ingredient_autocomplete_op
+            label: Ingredients
+            description: ''
+            use_operator: false
+            operator: ingredient_autocomplete_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ingredient_autocomplete
+            required: false
+            remember: false
+            multiple: true
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          error_message: true
       style:
         type: html_list
         options:
@@ -502,7 +652,7 @@ display:
         options:
           query_comment: ''
           disable_sql_rewrite: false
-          distinct: false
+          distinct: true
           replica: false
           query_tags: {  }
       relationships:

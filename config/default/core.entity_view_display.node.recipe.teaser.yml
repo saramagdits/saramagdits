@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.recipe.field_recipe_image
     - field.field.node.recipe.field_recipe_source_photo
     - field.field.node.recipe.field_recipe_tags
+    - field.field.node.recipe.field_recipe_total_time
     - field.field.node.recipe.recipe_cook_time
     - field.field.node.recipe.recipe_description
     - field.field.node.recipe.recipe_ingredient
@@ -74,6 +75,7 @@ content:
 hidden:
   field_net_carbs: true
   field_recipe_source_photo: true
+  field_recipe_total_time: true
   recipe_cook_time: true
   recipe_ingredient: true
   recipe_instructions: true
