@@ -7,7 +7,10 @@
       "Bash(grep:*)",
       "WebSearch",
       "WebFetch(domain:saramagdits.ddev.site)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(ddev composer *)",
+      "Bash(ddev drush *)",
+      "Bash(ddev snapshot *)"
     ]
   }
 }
